@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Shunaya Retreats · Yoga, art and nature retreats in the Himalayas and Goa</title>
+  <meta name="description" content="Small yoga, art and nature retreats in the Himalayas and Goa. Next up: Bir 2.0, 24–27 December 2026 in Bir Billing, Himachal Pradesh.">
+  <meta name="theme-color" content="#071B38">
+
+  <!-- Open Graph / social previews (og:image must be an absolute URL; update the domain when deploying) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Shunaya Retreats">
+  <meta property="og:title" content="Shunaya Retreats · Bir 2.0, 24–27 December 2026">
+  <meta property="og:description" content="Yoga, art and nature in the Himalayas. Four days of detox and detach in Bir Billing, Himachal Pradesh.">
+  <meta property="og:url" content="https://theshunaya.in/">
+  <meta property="og:image" content="https://theshunaya.in/assets/img/og-bir.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Guests at Shunaya’s Bir retreat holding the paintings they made">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+
+  <link rel="preload" href="assets/fonts/jost-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/playfair-display-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Motion is progressive: if js/motion.js doesn't run within 3s, content shows without animation -->
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__motion)document.documentElement.classList.remove('js')},3000);</script>
+</head>
+<body class="has-sticky-cta">
+
+  <!-- 0. Countdown bar -->
+  <div class="countdown-bar" role="region" aria-label="Next retreat">
+    <div class="container countdown-bar__inner">
+      <p class="countdown-bar__text">
+        <strong data-bind="upcoming.name">Bir 2.0</strong><span class="sep">·</span><span data-bind="upcoming.datesShort"></span><span class="countdown-bar__seats"><span class="sep">·</span><span data-bind="upcoming.seats"></span></span><span class="sep">·</span><span class="countdown-bar__label hide-below-480" data-countdown-label>starts in</span><span class="countdown-bar__time" data-countdown data-tbc-from="upcoming.countdownTo"></span>
+      </p>
+      <button type="button" class="btn" data-reserve>Reserve</button>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="Shunaya home">
+        <img src="assets/logo/shunaya-logo-128.webp" alt="" width="52" height="52">
+        <span class="brand__name">Shunaya</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#about">What we do</a>
+        <a href="#retreats">Where we’ve been</a>
+        <a href="#stories">Stories</a>
+        <a href="bir.html">Bir 2.0</a>
+      </nav>
+      <button type="button" class="btn btn--light btn--small" data-reserve>Book your seat</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1. Hero: the upcoming retreat -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__media" data-tbc-from="upcoming.heroImage">
+        <img src="assets/img/bir-2025-group-with-paintings-sm.webp"
+             srcset="assets/img/bir-2025-group-with-paintings-sm.webp 900w, assets/img/bir-2025-group-with-paintings.webp 2000w"
+             sizes="100vw" alt="Guests at Shunaya’s Bir retreat in December 2025, holding the paintings they made"
+             width="2000" height="1333" fetchpriority="high">
+      </div>
+      <div class="container hero__content">
+        <div>
+          <p class="eyebrow" data-intro style="--d:.15s"><span class="eyebrow__num">00</span><span>Next retreat</span></p>
+          <h1 class="hero__title" id="hero-title" data-bind="upcoming.name" data-enso-zero data-intro style="--d:.25s">Bir 2.0</h1>
+          <ul class="hero__meta" data-intro style="--d:.45s"><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-calendar-blank"></use></svg><span data-bind="upcoming.datesLong"></span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-map-pin"></use></svg><span data-bind="upcoming.place"></span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-users"></use></svg><span><span data-bind="upcoming.length"></span> · <span data-bind="upcoming.seats"></span></span></li></ul>
+          <p class="hero__promise" data-bind="upcoming.promise" data-intro style="--d:.55s"></p>
+          <p class="hero__price" data-intro style="--d:.65s">From <strong data-bind="upcoming.priceFrom"></strong> <small>per person</small></p>
+          <div class="hero__actions" data-intro style="--d:.75s">
+            <button type="button" class="btn btn--light" data-reserve>Book your seat <svg class="icon btn__arrow" aria-hidden="true"><use href="assets/icons/icons.svg#i-arrow-right"></use></svg></button>
+            <a class="btn btn--outline-light" href="bir.html#days">Check itinerary</a>
+          </div>
+        </div>
+        <p class="hero__scroll" aria-hidden="true">Scroll</p>
+      </div>
+    </section>
+
+    <!-- 2. What we do -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-intro">
+          <span class="about-intro__enso" data-enso="draw"></span>
+          <div data-reveal>
+            <p class="eyebrow"><span class="eyebrow__num">01</span><span>What we do</span></p>
+            <h2 id="about-title" data-bind="about.noteTitle" data-rich>Everything begins at <em>zero.</em></h2>
+            <p class="zero-note" data-bind="about.noteBody"></p>
+            <p class="zero-note__sig" data-bind="about.noteSignature"></p>
+          </div>
+          <div class="about-intro__partners" data-reveal style="--d:.15s">
+            <p class="lead" data-tbc-from="about.paragraph">Shunaya is run by three partners: <span data-bind="about.partner0"></span>, <span data-bind="about.partner1"></span> and <span data-bind="about.partner2"></span>. Like many people, they found themselves caught in routines that left little room to pause. Yoga, art and nature brought them back. Today they share one goal: retreats where you can step away from everyday life, meet like-minded people, explore creativity and build habits that support lasting wellbeing.</p>
+          </div>
+        </div>
+        <div class="pillars" id="pillars" data-stagger></div>
+      </div>
+    </section>
+
+    <!-- 3. Past retreats -->
+    <section class="section section--white" id="retreats" aria-labelledby="retreats-title">
+      <div class="container">
+        <div class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow"><span class="eyebrow__num">02</span><span>Past retreats</span></p>
+            <h2 id="retreats-title">Where we’ve <em>been</em></h2>
+          </div>
+          <p class="lead">Four retreats so far, from the snow of Tosh to the coast of Goa. Tap a card for a glimpse.</p>
+        </div>
+        <div class="rail retreat-cards" id="past-retreats" data-stagger data-drag></div>
+        <div class="rail-progress" aria-hidden="true"><span></span></div>
+      </div>
+    </section>
+
+    <!-- 4. Testimonials -->
+    <section class="section section--dark" id="stories" aria-labelledby="stories-title">
+      <div class="container">
+        <div class="section-head section-head--split section-head--rail" data-reveal>
+          <div>
+            <p class="eyebrow"><span class="eyebrow__num">03</span><span>Stories</span></p>
+            <h2 id="stories-title">In our guests’ <em>words</em></h2>
+          </div>
+          <div class="rail-controls">
+            <button type="button" class="icon-btn" data-rail-prev aria-controls="quote-track" aria-label="Previous testimonial"><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-caret-left"></use></svg></button>
+            <button type="button" class="icon-btn" data-rail-next aria-controls="quote-track" aria-label="Next testimonial"><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-caret-right"></use></svg></button>
+            <span class="rail-count" data-rail-count="quote-track" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="rail quote-rail" id="quote-track" data-testimonials data-drag data-cursor="drag" tabindex="0" aria-label="Guest testimonials" data-reveal></div>
+        <div class="rail-progress" aria-hidden="true"><span></span></div>
+
+        <div class="watch-head" data-reveal>
+          <p class="eyebrow"><span>Watch</span></p>
+          <h3>Moments from <em>Shunaya</em></h3>
+        </div>
+        <div class="watch" data-watch data-reveal></div>
+      </div>
+    </section>
+
+    <!-- 5. Brands -->
+    <section class="section section--deep" id="brands-section" aria-labelledby="brands-title">
+      <div class="container">
+        <div class="section-head section-head--center" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__num">04</span><span>Collaborations</span></p>
+          <h2 id="brands-title">Brands we’ve <em>worked with</em></h2>
+        </div>
+        <ul class="brands" id="brands" data-stagger></ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 6. Footer -->
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="closing">
+        <span class="closing__enso" data-enso="draw"></span>
+        <div data-reveal>
+          <h2>Every retreat is an invitation to begin again. <em>From zero.</em></h2>
+          <div class="closing__cta">
+            <button type="button" class="btn btn--light" data-reserve><span>Reserve <span data-bind="upcoming.name">Bir 2.0</span></span> <svg class="icon btn__arrow" aria-hidden="true"><use href="assets/icons/icons.svg#i-arrow-right"></use></svg></button>
+            <p><span data-bind="upcoming.datesShort"></span> · <span data-bind="upcoming.place"></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-main">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="assets/logo/shunaya-logo-300.webp" alt="Shunaya Retreats" width="104" height="104" loading="lazy">
+            <p>Small yoga, art and nature retreats in the Himalayas and Goa.</p>
+          </div>
+          <div>
+            <p class="footer-title">Get in touch</p>
+            <ul class="footer-list">
+              <li><a data-href="whatsapp"><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-whatsapp-logo"></use></svg><span data-bind="config.whatsappDisplay"></span></a></li>
+              <li><a data-href="email"><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-envelope-simple"></use></svg><span data-bind="config.contactEmail"></span></a></li>
+              <li><a data-href="instagram"><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-instagram-logo"></use></svg><span data-bind="config.instagramHandle"></span></a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="footer-title">Explore</p>
+            <ul class="footer-list">
+              <li><a href="#about">What we do</a></li>
+              <li><a href="#retreats">Where we’ve been</a></li>
+              <li><a href="#stories">Stories</a></li>
+              <li><a href="bir.html">Bir 2.0</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Shunaya Retreats</p>
+          <a href="#top">Back to top <svg class="icon" aria-hidden="true" style="transform:rotate(-90deg)"><use href="assets/icons/icons.svg#i-arrow-right"></use></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky mobile CTA (appears after the hero) -->
+  <div class="sticky-cta">
+    <button type="button" class="btn btn--primary" data-reserve>Reserve your seat <span class="sticky-cta__price">· from <span data-bind="upcoming.priceFrom"></span></span></button>
+  </div>
+
+  <!-- Past retreat glimpse -->
+  <dialog class="dialog" id="glimpse-dialog" aria-labelledby="glimpse-title">
+    <div class="dialog__bar">
+      <p class="dialog__title" id="glimpse-title"></p>
+      <button type="button" class="icon-btn" data-close aria-label="Close"><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-x"></use></svg></button>
+    </div>
+    <div class="dialog__body"></div>
+  </dialog>
+
+  <!-- Booking form (pre-set to Bir 2.0) -->
+  <dialog class="dialog dialog--form dialog--sheet" id="booking-dialog" aria-labelledby="booking-title">
+    <div class="dialog__bar">
+      <p class="dialog__title" id="booking-title">Reserve your seat</p>
+      <button type="button" class="icon-btn" data-close aria-label="Close"><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-x"></use></svg></button>
+    </div>
+    <div class="dialog__body" data-booking-modal></div>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/motion.js"></script>
+</body>
+</html>

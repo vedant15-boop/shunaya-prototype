@@ -1,0 +1,12 @@
+# Scraped originals (67 MB) — kept locally, not needed to run the site
+source-raw/
+
+# Internal working documents (not for sharing)
+shunaya-claude-code-prompt.md
+Shunaya_Website_Change_Plan.pdf
+content/
+ASSUMPTIONS.md
+
+# Local / OS clutter
+.DS_Store
+.claude/settings.local.json
