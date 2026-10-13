@@ -40,7 +40,21 @@ Every price, date, seat count and countdown on both pages reads from `data.js`, 
 
 **Meta Pixel:** set `config.metaPixelId`. The pixel loads with a PageView, and every form submit fires `fbq('track', 'Lead')`.
 
-## Share a preview
+## Live preview (GitHub Pages)
+
+- Site: https://vedant15-boop.github.io/shunaya-prototype/ (homepage) and https://vedant15-boop.github.io/shunaya-prototype/bir.html (Bir 2.0 page)
+- Review mode: add `?review=1`, e.g. https://vedant15-boop.github.io/shunaya-prototype/?review=1
+- Code: https://github.com/vedant15-boop/shunaya-prototype
+
+To publish an update, commit and push; GitHub rebuilds the site in a minute or two:
+
+```bash
+git add -A && git commit -m "Describe the change" && git push
+```
+
+`.gitignore` keeps `source-raw/`, `content/`, `ASSUMPTIONS.md` and the internal brief/plan files out of the repo.
+
+## Other ways to share a preview
 
 `source-raw/` (67 MB of scraped originals) and `content/` don't need to go online.
 
@@ -56,7 +70,7 @@ rsync -a --exclude source-raw --exclude content --exclude .claude ./ ../shunaya-
 npx vercel
 ```
 
-After deploying, replace `https://theshunaya.in` in the `og:url` / `og:image` tags of both HTML files with the preview URL, so link previews on WhatsApp and Instagram show the Bir photo.
+The `og:url` / `og:image` tags in both HTML files currently point at the GitHub Pages address (absolute URLs are required for link previews). If you deploy somewhere else, or at launch, change them to that domain.
 
 ## Folder map
 
