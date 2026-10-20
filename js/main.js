@@ -575,34 +575,40 @@
     btn.disabled = true; btn.textContent = 'Sending…';
     // Sent as text/plain so the browser skips the CORS preflight, which Google Apps Script can't answer.
     // Capped at 10s: a slow network should never leave the visitor stuck on "Sending…".
-    var send = C.formEndpoint && !payload.website
-      ? Promise.race([
-          fetch(C.formEndpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(payload)
-          }).then(function (res) { return res.json(); }).then(function (r) {
-            if (!r || !r.ok) console.warn('[Shunaya] Form endpoint rejected the booking; continuing to WhatsApp.', r);
-          }),
-          new Promise(function (resolve) {
-            setTimeout(function () { console.warn('[Shunaya] Form endpoint is slow; continuing to WhatsApp.'); resolve(); }, 10000);
-          })
-        ]).catch(function (err) { console.warn('[Shunaya] Form endpoint failed; continuing to WhatsApp.', err); })
-      : Promise.resolve(console.log('[Shunaya] No formEndpoint set in data.js. Booking payload:', payload));
+    // Resolves to true once the sheet confirms the booking was saved.
+    var send = !C.formEndpoint
+      ? Promise.resolve(console.log('[Shunaya] No formEndpoint set in data.js. Booking payload:', payload)).then(function () { return false; })
+      : payload.website
+        ? Promise.resolve(true)   // honeypot filled: a bot, so skip the request but show the normal thank-you
+        : Promise.race([
+            fetch(C.formEndpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: JSON.stringify(payload)
+            }).then(function (res) { return res.json(); }).then(function (r) {
+              if (!r || !r.ok) console.warn('[Shunaya] Form endpoint rejected the booking; offering WhatsApp instead.', r);
+              return !!(r && r.ok);
+            }),
+            new Promise(function (resolve) {
+              setTimeout(function () { console.warn('[Shunaya] Form endpoint is slow; offering WhatsApp instead.'); resolve(false); }, 10000);
+            })
+          ]).catch(function (err) { console.warn('[Shunaya] Form endpoint failed; offering WhatsApp instead.', err); return false; });
 
-    send.then(function () {
+    send.then(function (saved) {
       // (2) Meta Pixel lead event
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: U.name });
 
-      // (3) Thank-you state + (4) WhatsApp hand-off
+      // (3) Thank-you state. (4) If the booking didn't reach the sheet, offer WhatsApp so the lead isn't lost
       var msg = 'Hi Shunaya, I’d like to reserve ' + (payload.seats > 1 ? payload.seats + ' seats' : 'a seat') + ' for ' + U.name + ' (' + (U.placeShort ? U.placeShort + ', ' : '') + formatRange(U.startDate, U.endDate, false, false) + '). Name: ' + payload.name + (room ? '. Room: ' + room.name : '') + '.';
       var first = payload.name.split(' ')[0];
       container.innerHTML =
         '<div class="booking__done" role="status" tabindex="-1">' +
           '<div class="booking__done-icon"><span data-enso="draw"></span></div>' +
           '<h3>Thank you, ' + esc(first) + '.</h3>' +
-          '<p>Your request for ' + esc(U.name) + ' (' + esc(formatRange(U.startDate, U.endDate, false, false)) + ') is in. We’ll reach out on WhatsApp to confirm your seat and share how to pay the ' + esc(inr(U.bookingAmount)) + ' booking amount. Want to talk sooner? Message us now.</p>' +
-          '<a class="btn btn--whatsapp btn--block" href="' + esc(waLink(msg)) + '" target="_blank" rel="noopener">' + icon('whatsapp-logo') + ' Continue on WhatsApp</a>' +
+          (saved
+            ? '<p>Your request for ' + esc(U.name) + ' is in. We will reach out to you on WhatsApp to confirm your seat.</p>'
+            : '<p>We couldn’t confirm your request just now. Send it to us on WhatsApp and we’ll take it from there.</p>' +
+              '<a class="btn btn--whatsapp btn--block" href="' + esc(waLink(msg)) + '" target="_blank" rel="noopener">' + icon('whatsapp-logo') + ' Continue on WhatsApp</a>') +
           '<button type="button" class="text-link" data-edit>Edit my details</button>' +
         '</div>';
       if (window.ShunayaMotion) window.ShunayaMotion.mountEnso(container);
