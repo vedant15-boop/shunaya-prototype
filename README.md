@@ -3,7 +3,7 @@
 A clickable prototype of the reworked Shunaya Retreats site, built for client approval before the WordPress (Elementor + Astra) build.
 
 - `index.html`: homepage
-- `bir.html`: Bir 2.0 landing page for Meta/Instagram ads
+- `bir.html`: landing page for the upcoming retreat, *The Undoing* (Bir, 24–27 Dec 2026), for Meta/Instagram ads
 
 It's plain HTML, CSS and vanilla JS. There's no build step and nothing loads from a CDN: fonts, icons and images are all local.
 
@@ -24,7 +24,7 @@ Everything editable is in **`data.js`**:
 | What | Where in `data.js` |
 |---|---|
 | WhatsApp number, emails, Instagram, Meta Pixel ID, form endpoint | `config` |
-| Bir 2.0 dates, seats left, prices, booking amount, inclusions, countdown target | `upcoming` |
+| Upcoming retreat (*The Undoing*): name, which letter becomes the ensō, dates, seats left, prices, booking amount, inclusions, hero photo, countdown target | `upcoming` |
 | "What we do" partners and founders' note | `about` |
 | Pillars | `pillars` |
 | Past retreats (cards, galleries, itineraries) | `pastRetreats` |
@@ -42,7 +42,7 @@ Every price, date, seat count and countdown on both pages reads from `data.js`, 
 
 ## Live preview (GitHub Pages)
 
-- Site: https://vedant15-boop.github.io/shunaya-prototype/ (homepage) and https://vedant15-boop.github.io/shunaya-prototype/bir.html (Bir 2.0 page)
+- Site: https://vedant15-boop.github.io/shunaya-prototype/ (homepage) and https://vedant15-boop.github.io/shunaya-prototype/bir.html (The Undoing page)
 - Review mode: add `?review=1`, e.g. https://vedant15-boop.github.io/shunaya-prototype/?review=1
 - Code: https://github.com/vedant15-boop/shunaya-prototype
 
@@ -82,6 +82,7 @@ js/main.js               countdown, booking form, glimpse modal, carousels, vide
 assets/fonts/            Playfair Display + Jost (self-hosted, from the current site's fonts)
 assets/icons/icons.svg   Phosphor icon sprite (light weight, MIT)
 assets/img/              web-sized photos (name.webp ≤2000px, name-sm.webp ≤900px), brand logos, OG image, video thumbnails
+assets/img/gallery/      client-supplied retreat galleries, one folder per retreat (+ hero/); each photo has -sm and -th (thumbnail) sizes
 assets/logo/             logo sizes, favicons, iOS home-screen icon
 content/, source-raw/, ASSUMPTIONS.md   working files (scraped content, originals, open items) — kept locally, not in this repo
 ```
@@ -96,7 +97,7 @@ The brand's zero, *Shunya*, is drawn as an **ensō**, the Zen circle painted in 
   - A click sends out an ensō ripple, like a drop on still water.
   - Over dark sections it turns sand-coloured so it stays visible. Over form fields the normal text cursor returns.
 - **Headings and graphics.**
-  - The zero in "Bir 2.0" is a painted ensō.
+  - The "o" in "The Undoing" is a painted ensō (set by `upcoming.ensoLetter`).
   - Large ensōs paint themselves as you scroll to "Everything begins at zero" and to the closing line, "From zero".
   - Brushed rings wrap the host portraits.
   - The photo placeholders carry an ensō mark.

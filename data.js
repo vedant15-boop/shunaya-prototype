@@ -17,8 +17,8 @@ window.SHUNAYA = {
   config: {
     siteName: 'Shunaya',
     legalName: 'Shunaya Retreats',
-    whatsappNumber: '919131744426',            // digits only, with country code; used for wa.me links
-    whatsappDisplay: '+91 91317 44426',
+    whatsappNumber: '918850872404',            // digits only, with country code; used for wa.me links
+    whatsappDisplay: '+91 88508 72404',
     contactEmail: 'theshunayaretreats@gmail.com', // public email shown in the footer (from the current site)
     notificationEmail: 'hello@theshunaya.in',    // where booking notifications should go (placeholder)
     instagramUrl: 'https://www.instagram.com/theshunayaretreats',
@@ -26,7 +26,6 @@ window.SHUNAYA = {
     metaPixelId: '',      // e.g. '1234567890'. Leave empty to disable the Meta Pixel.
     formEndpoint: '',     // e.g. a Formspree / Make / n8n webhook URL. Empty = log the payload to the console.
     tbc: {
-      whatsappNumber: 'Assumed booking number. Alternatives: 88508 72404 (on current sites), 99673 60597.',
       notificationEmail: 'Placeholder address. Confirm where booking notifications should go.',
       formEndpoint: 'No form endpoint yet; submissions are only logged and handed to WhatsApp.'
     }
@@ -37,7 +36,9 @@ window.SHUNAYA = {
   /* ------------------------------------------------------------------ */
   upcoming: {
     id: 'bir-2',
-    name: 'Bir 2.0',
+    name: 'The Undoing',
+    ensoLetter: 'o',                            // this letter of the name is drawn as a brushed ensō in the hero
+    placeShort: 'Bir',
     place: 'Bir Billing, Himachal Pradesh',
     region: 'Sacred Valley',
     startDate: '2026-12-24',
@@ -50,9 +51,10 @@ window.SHUNAYA = {
     seatsLeft: 15,                              // update as seats sell; drives every seat count on the site
     maxSeatsPerBooking: 4,                      // the booking form's "Seats" dropdown goes up to this (or seatsLeft)
     promise: 'Detox and detach: a retreat that nourishes your mind, body and soul. Yoga with art.',
-    heroImage: 'assets/img/bir-2025-group-with-paintings.webp',
-    heroImageSm: 'assets/img/bir-2025-group-with-paintings-sm.webp',
-    heroImageAlt: 'Guests at Shunaya’s Bir retreat in December 2025, holding the paintings they made',
+    // Hero photo: chosen from the client's "Hero page image options" (5 more in source-raw/drive)
+    heroImage: 'assets/img/gallery/hero/meditation-apple-orchard.webp',
+    heroImageSm: 'assets/img/gallery/hero/meditation-apple-orchard-sm.webp',
+    heroImageAlt: 'Guests meditating on mats in a sunlit apple orchard at a Shunaya retreat',
     rooms: [
       { id: 'triple', name: 'Triple sharing', price: 27399, note: 'Share a room with two other guests' },
       { id: 'dual', name: 'Dual sharing', price: 33599, note: 'Share a room with one other guest' }
@@ -70,7 +72,6 @@ window.SHUNAYA = {
       'Paragliding flights'
     ],
     tbc: {
-      heroImage: 'Photo is from Bir 2025 (a group shot). Ask the client for a Bir landscape photo.',
       countdownTo: 'Countdown runs to 00:00 IST on 24 Dec. Update once check-in time is fixed.'
     }
   },
@@ -78,17 +79,21 @@ window.SHUNAYA = {
   /* ------------------------------------------------------------------ */
   /* Homepage: What we do                                                */
   /* ------------------------------------------------------------------ */
+  // Approved copy (Shunaya change request, Oct 2026). The first sentence is shown as the heading.
   about: {
-    partners: ['Avinash Kaur', 'Rhythm S.', 'Partner name'],
-    tbc: {
-      partners: 'Name of the third partner is unknown.',
-      paragraph: 'Draft: reworded from the site’s “Our story” copy to introduce the partners.'
-    },
-    note: {
-      title: 'Everything begins at *zero.*',
-      body: 'Shunaya was inspired by the idea of Shunya, the state of beginning with nothing, not because nothing exists, but because everything becomes possible from there. Every retreat is an invitation to begin again. From zero.',
-      signature: 'Shunaya (0)'
-    }
+    title: 'We created the kind of space we were looking for.',
+    intro: 'Like many people, we found ourselves caught in routines that left little room to pause, reflect, or simply be present.',
+    lines: [
+      'Yoga helped us reconnect with our bodies.',
+      'Art gave us a way to express what words often couldn’t.',
+      'Nature reminded us to slow down.',
+      'The people we met along the way showed us the value of genuine community.'
+    ],
+    outro: [
+      'Shunaya grew from those experiences.',
+      'Today, we create retreats and gatherings where people can step away from everyday life, meet like minded individuals, explore creativity, and build habits that support lasting wellbeing.',
+      'Whether you come alone or with friends, you’ll find a welcoming community waiting for you.'
+    ]
   },
 
   pillars: [
@@ -99,7 +104,7 @@ window.SHUNAYA = {
       image: 'assets/img/pillar-yoga-sm.webp',
       imageAlt: 'Guests doing yoga on mats outside a heritage house',
       lead: 'Yoga at Shunaya is about building a stronger relationship with yourself, not achieving the perfect pose.',
-      experience: 'We offer guided yoga sessions suitable for all experience levels, along with breathing techniques, meditation, and reflective practices that encourage both physical and mental wellbeing.'
+      experience: 'We offer guided yoga sessions suitable for all experience levels, along with breathing techniques, meditation, and reflective practices that encourage physical and mental wellbeing. We also host **Yoga Talks** that explore the philosophy of yoga, its deeper meaning, and how its timeless wisdom can be applied to everyday life, helping you connect with yoga beyond the mat.'
     },
     {
       id: 'art',
@@ -134,13 +139,19 @@ window.SHUNAYA = {
       endDate: '2025-10-12',
       length: '4 days · 3 nights',
       description: 'The original mountain retreat. Snow-capped peaks, bonfire nights, and the kind of silence that speaks louder than words.',
-      cardImage: 'assets/img/tosh-dusk-fairy-lights-sm.webp',
+      cardImage: 'assets/img/gallery/tosh/02-meadow-sm.webp',
       gallery: [
-        ['assets/img/tosh-dusk-fairy-lights', 'Mountains at dusk under string lights'],
-        ['assets/img/tosh-group-with-paintings', 'The Tosh group holding their paintings'],
-        ['assets/img/tosh-waterfall-group', 'Guests resting on a mountain trail'],
-        ['assets/img/tosh-snow-peaks-flowers', 'Snow peaks above Tosh'],
-        ['assets/img/tosh-group-photo', 'The whole group together']
+        ['assets/img/gallery/tosh/01-arrival', 'Arriving in Tosh under the snow peaks'],
+        ['assets/img/gallery/tosh/02-meadow', 'The meadow below the snow peaks'],
+        ['assets/img/gallery/tosh/03-yoga-grass', 'Yoga on the grass by the cottage'],
+        ['assets/img/gallery/tosh/04-meditation', 'Outdoor meditation in the meadow'],
+        ['assets/img/gallery/tosh/05-art-coasters', 'Hand-painted coasters from the art session'],
+        ['assets/img/gallery/tosh/06-group-paintings', 'The group with their paintings'],
+        ['assets/img/gallery/tosh/07-trek', 'On the trek'],
+        ['assets/img/gallery/tosh/08-forest-path', 'A sunlit forest path'],
+        ['assets/img/gallery/tosh/09-celebration', 'Celebrating outside the cottage'],
+        ['assets/img/gallery/tosh/10-wildflowers', 'Wildflowers and mountains'],
+        ['assets/img/gallery/tosh/11-milky-way', 'The Milky Way over Tosh']
       ],
       itinerary: [
         ['Day 1', 'Arrival in snow-dusted Tosh, warm welcome ginger tea, grounding stretch.'],
@@ -159,14 +170,20 @@ window.SHUNAYA = {
       endDate: '2025-12-22',
       length: '4 days · 3 nights',
       description: 'Where stillness becomes sacred. A home for the wandering soul in the paragliding capital surrounded by Buddhist monasteries.',
-      cardImage: 'assets/img/bir-2025-group-yoga-hall-sm.webp',
+      cardImage: 'assets/img/gallery/bir-2025/08-trek-sunset-sm.webp',
       gallery: [
-        ['assets/img/bir-2025-group-yoga-hall', 'The Bir 2025 group with their yoga mats'],
-        ['assets/img/bir-2025-art-session-1', 'An art session in progress'],
-        ['assets/img/bir-2025-art-session-2', 'Painting close-up'],
-        ['assets/img/bir-2025-group-with-paintings', 'Guests holding the paintings they made'],
-        ['assets/img/bir-2025-art-session-3', 'Painting around the table'],
-        ['assets/img/bir-2025-night-exterior', 'The stay at night']
+        ['assets/img/gallery/bir-2025/01-group-yoga-hall', 'The Bir 2025 group with their yoga mats'],
+        ['assets/img/gallery/bir-2025/02-yoga-class', 'Morning yoga in the hall'],
+        ['assets/img/gallery/bir-2025/03-yoga-wheel', 'A guest in wheel pose'],
+        ['assets/img/gallery/bir-2025/04-art-sketching', 'Sketching during an art session'],
+        ['assets/img/gallery/bir-2025/05-painting', 'A painting in progress'],
+        ['assets/img/gallery/bir-2025/06-group-paintings', 'Guests holding the paintings they made'],
+        ['assets/img/gallery/bir-2025/07-monastery', 'A Buddhist monastery near Bir'],
+        ['assets/img/gallery/bir-2025/08-trek-sunset', 'The group on a mountain trail at sunset'],
+        ['assets/img/gallery/bir-2025/09-stream', 'Crossing a mountain stream'],
+        ['assets/img/gallery/bir-2025/10-waterfall', 'A group selfie at the waterfall'],
+        ['assets/img/gallery/bir-2025/11-billing', 'At the Billing paragliding take-off point'],
+        ['assets/img/gallery/bir-2025/12-sunset', 'Sunset over the valley']
       ],
       itinerary: [
         ['Day 1', 'Arrive in Bir, meet and greet, settle in, evening candlelit restorative yoga.'],
@@ -184,14 +201,20 @@ window.SHUNAYA = {
       endDate: '2026-10-04',
       length: '3 days · 2 nights',
       description: 'The coastal soul of Shunaya. A journey through ocean tides, creative expression, and the warm embrace of community.',
-      cardImage: 'assets/img/goa-beach-group-sm.webp',
+      cardImage: 'assets/img/gallery/goa/12-sunset-sm.webp',
       gallery: [
-        ['assets/img/goa-beach-group', 'Guests on the beach at sunset'],
-        ['assets/img/goa-group-yoga-lounge', 'Group yoga in the lounge'],
-        ['assets/img/goa-painting', 'A guest painting'],
-        ['assets/img/goa-art-supplies', 'Paints and canvases laid out for a session'],
-        ['assets/img/goa-library-lounge', 'Guests relaxing in the library lounge'],
-        ['assets/img/goa-group-yoga-lounge-2', 'Yoga in the lounge']
+        ['assets/img/gallery/goa/01-courtyard', 'The group in the courtyard of the heritage stay'],
+        ['assets/img/gallery/goa/02-library', 'Sharing a laugh in the library'],
+        ['assets/img/gallery/goa/03-yoga-house', 'Yoga outside the heritage house'],
+        ['assets/img/gallery/goa/04-yoga-trees', 'Yoga under the trees'],
+        ['assets/img/gallery/goa/05-savasana', 'Rest at the end of a session'],
+        ['assets/img/gallery/goa/06-art-lounge', 'An art session in the lounge'],
+        ['assets/img/gallery/goa/07-beach-meditation', 'Morning meditation on the beach'],
+        ['assets/img/gallery/goa/08-beach-yoga', 'Beach yoga at sunrise'],
+        ['assets/img/gallery/goa/09-beach-rest', 'Lying back on the sand'],
+        ['assets/img/gallery/goa/10-beach-group', 'The group on the beach'],
+        ['assets/img/gallery/goa/11-beach-selfie', 'A group selfie by the sea'],
+        ['assets/img/gallery/goa/12-sunset', 'In the water at sunset']
       ],
       itinerary: [
         ['Day 1', 'Arrival at the wellness resort, evening sunset circle on the beach.'],
@@ -200,8 +223,7 @@ window.SHUNAYA = {
       ],
       tbc: {
         length: 'Derived from the 2–4 Oct dates.',
-        itinerary: 'From the old site’s 4-day Goa listing (dated 12–15 Feb 2026); day 4 dropped to fit 3 days. Confirm.',
-        gallery: 'Photos are from the old site’s Goa gallery, which predates the Oct retreat. Client to supply Oct 2026 photos.'
+        itinerary: 'From the old site’s 4-day Goa listing (dated 12–15 Feb 2026); day 4 dropped to fit 3 days. Confirm.'
       }
     },
     {
@@ -213,13 +235,20 @@ window.SHUNAYA = {
       endDate: '2026-05-24',
       length: '5 days · 4 nights',
       description: 'Where silence meets the mountains. A deeper journey into the Himalayan stillness with extended meditation and nature immersion.',
-      cardImage: 'assets/img/tosh-milky-way-sm.webp',
+      cardImage: 'assets/img/gallery/tosh-2/03-yoga-peaks-sm.webp',
       gallery: [
-        ['assets/img/tosh-milky-way', 'The Milky Way over Tosh'],
-        ['assets/img/tosh-sun-valley', 'A guest taking in the valley'],
-        ['assets/img/tosh-guest-with-painting', 'A guest with her painting among wildflowers'],
-        ['assets/img/tosh-cafe-painting', 'Painting in a mountain café'],
-        ['assets/img/tosh-snow-peaks', 'Snow peaks under a blue sky']
+        ['assets/img/gallery/tosh-2/01-stay', 'The wooden guesthouse in Tosh'],
+        ['assets/img/gallery/tosh-2/02-yoga-morning', 'Morning yoga outdoors'],
+        ['assets/img/gallery/tosh-2/03-yoga-peaks', 'Yoga below the snow peaks'],
+        ['assets/img/gallery/tosh-2/04-savasana', 'A happy moment at the end of savasana'],
+        ['assets/img/gallery/tosh-2/05-painting', 'A guest painting'],
+        ['assets/img/gallery/tosh-2/06-art-cafe', 'An art session in the café'],
+        ['assets/img/gallery/tosh-2/07-group-paintings', 'Showing off the paintings'],
+        ['assets/img/gallery/tosh-2/08-forest-walk', 'A forest walk through the meadow'],
+        ['assets/img/gallery/tosh-2/09-tree-hug', 'Hugging a cedar on the forest walk'],
+        ['assets/img/gallery/tosh-2/10-waterfall', 'At the waterfall'],
+        ['assets/img/gallery/tosh-2/11-group', 'The Tosh 2.0 group'],
+        ['assets/img/gallery/tosh-2/12-night-sky', 'The night sky over Tosh']
       ],
       itinerary: [
         ['Day 1', 'Arrival, orientation circle, welcome yin yoga under the mountain sky.'],
@@ -287,34 +316,32 @@ window.SHUNAYA = {
     { name: 'Wise Life', logo: 'assets/img/brand-wiselife.png', height: 32 },
     { name: 'Boldfit', logo: 'assets/img/brand-boldfit.png', height: 26 },
     { name: 'Scarlet Blinks', logo: 'assets/img/brand-scarlet-blinks.png', height: 60 },
-    { name: 'Brand logo', logo: '', tbc: 'Placeholder slot. Client to supply logo.' },
-    { name: 'Brand logo', logo: '', tbc: 'Placeholder slot. Client to supply logo.' },
-    { name: 'Brand logo', logo: '', tbc: 'Placeholder slot. Client to supply logo.' }
+    { name: 'Vixie', logo: 'assets/img/brand-vixie.png', height: 40 },
+    { name: 'Fitnut', logo: 'assets/img/brand-fitnut.png', height: 26 }
   ],
 
   /* ------------------------------------------------------------------ */
-  /* Bir 2.0 landing page (bir.html)                                     */
+  /* The Undoing landing page (bir.html)                                 */
   /* ------------------------------------------------------------------ */
   bir: {
     experiences: [
       {
         name: 'Yoga',
-        image: 'assets/img/bir-2025-group-yoga-hall-sm.webp',
-        imageAlt: 'The Bir 2025 group with their yoga mats',
+        image: 'assets/img/gallery/bir-2025/02-yoga-class-sm.webp',
+        imageAlt: 'Morning yoga at Shunaya’s Bir retreat',
         text: 'Daily yoga with breathwork and meditation, plus tratak (candle-gazing) to settle a busy mind. Suitable for all experience levels.'
       },
       {
         name: 'Art',
-        image: 'assets/img/bir-2025-art-session-1-sm.webp',
-        imageAlt: 'An art session at Bir 2025',
+        image: 'assets/img/gallery/bir-2025/04-art-sketching-sm.webp',
+        imageAlt: 'Guests sketching during an art session in Bir',
         text: 'Art therapy sessions led by artists who encourage curiosity instead of perfection. No experience needed, just a willingness to play.'
       },
       {
         name: 'Nature',
-        image: '',
-        imageAlt: '',
-        text: 'A trek to the Mata Maheshwari temple, a bonfire under the winter sky and a night of stargazing in the mountains.',
-        tbc: { image: 'No Bir nature photo yet. Client to supply.' }
+        image: 'assets/img/gallery/bir-2025/08-trek-sunset-sm.webp',
+        imageAlt: 'The group on a mountain trail near Bir at sunset',
+        text: 'A trek to the Mata Maheshwari temple, a bonfire under the winter sky and a night of stargazing in the mountains.'
       }
     ],
     experiencesTbc: 'Copy drafted from the activities named on the client call.',

@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Shunaya Retreats · Yoga, art and nature retreats in the Himalayas and Goa</title>
-  <meta name="description" content="Small yoga, art and nature retreats in the Himalayas and Goa. Next up: Bir 2.0, 24–27 December 2026 in Bir Billing, Himachal Pradesh.">
+  <meta name="description" content="Small yoga, art and nature retreats in the Himalayas and Goa. Next up: The Undoing, 24–27 December 2026 in Bir Billing, Himachal Pradesh.">
   <meta name="theme-color" content="#071B38">
 
   <!-- Open Graph / social previews (og:image must be an absolute URL; points at the GitHub Pages preview — switch to the final domain at launch) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Shunaya Retreats">
-  <meta property="og:title" content="Shunaya Retreats · Bir 2.0, 24–27 December 2026">
+  <meta property="og:title" content="Shunaya Retreats · The Undoing, 24–27 December 2026, Bir">
   <meta property="og:description" content="Yoga, art and nature in the Himalayas. Four days of detox and detach in Bir Billing, Himachal Pradesh.">
   <meta property="og:url" content="https://vedant15-boop.github.io/shunaya-prototype/">
-  <meta property="og:image" content="https://vedant15-boop.github.io/shunaya-prototype/assets/img/og-bir.jpg">
+  <meta property="og:image" content="https://vedant15-boop.github.io/shunaya-prototype/assets/img/og-hero.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Guests at Shunaya’s Bir retreat holding the paintings they made">
+  <meta property="og:image:alt" content="Guests meditating in an apple orchard at a Shunaya retreat">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
@@ -35,7 +35,7 @@
   <div class="countdown-bar" role="region" aria-label="Next retreat">
     <div class="container countdown-bar__inner">
       <p class="countdown-bar__text">
-        <strong data-bind="upcoming.name">Bir 2.0</strong><span class="sep">·</span><span data-bind="upcoming.datesShort"></span><span class="countdown-bar__seats"><span class="sep">·</span><span data-bind="upcoming.seats"></span></span><span class="sep">·</span><span class="countdown-bar__label hide-below-480" data-countdown-label>starts in</span><span class="countdown-bar__time" data-countdown data-tbc-from="upcoming.countdownTo"></span>
+        <strong data-bind="upcoming.name">The Undoing</strong><span class="sep">·</span><span data-bind="upcoming.datesShort"></span><span class="countdown-bar__seats"><span class="sep">·</span><span data-bind="upcoming.seats"></span></span><span class="sep">·</span><span class="countdown-bar__label hide-below-480" data-countdown-label>starts in</span><span class="countdown-bar__time" data-countdown data-tbc-from="upcoming.countdownTo"></span>
       </p>
       <button type="button" class="btn" data-reserve>Reserve</button>
     </div>
@@ -51,7 +51,7 @@
         <a href="#about">What we do</a>
         <a href="#retreats">Where we’ve been</a>
         <a href="#stories">Stories</a>
-        <a href="bir.html">Bir 2.0</a>
+        <a href="bir.html">The Undoing</a>
       </nav>
       <button type="button" class="btn btn--light btn--small" data-reserve>Book your seat</button>
     </div>
@@ -62,15 +62,15 @@
     <!-- 1. Hero: the upcoming retreat -->
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero__media" data-tbc-from="upcoming.heroImage">
-        <img src="assets/img/bir-2025-group-with-paintings-sm.webp"
-             srcset="assets/img/bir-2025-group-with-paintings-sm.webp 900w, assets/img/bir-2025-group-with-paintings.webp 2000w"
-             sizes="100vw" alt="Guests at Shunaya’s Bir retreat in December 2025, holding the paintings they made"
+        <img src="assets/img/gallery/hero/meditation-apple-orchard-sm.webp"
+             srcset="assets/img/gallery/hero/meditation-apple-orchard-sm.webp 900w, assets/img/gallery/hero/meditation-apple-orchard.webp 2000w"
+             sizes="100vw" alt="Guests meditating on mats in a sunlit apple orchard at a Shunaya retreat"
              width="2000" height="1333" fetchpriority="high">
       </div>
       <div class="container hero__content">
         <div>
           <p class="eyebrow" data-intro style="--d:.15s"><span class="eyebrow__num">00</span><span>Next retreat</span></p>
-          <h1 class="hero__title" id="hero-title" data-bind="upcoming.name" data-enso-zero data-intro style="--d:.25s">Bir 2.0</h1>
+          <h1 class="hero__title" id="hero-title" data-bind="upcoming.name" data-enso-zero data-intro style="--d:.25s">The Undoing</h1>
           <ul class="hero__meta" data-intro style="--d:.45s"><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-calendar-blank"></use></svg><span data-bind="upcoming.datesLong"></span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-map-pin"></use></svg><span data-bind="upcoming.place"></span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-users"></use></svg><span><span data-bind="upcoming.length"></span> · <span data-bind="upcoming.seats"></span></span></li></ul>
           <p class="hero__promise" data-bind="upcoming.promise" data-intro style="--d:.55s"></p>
           <p class="hero__price" data-intro style="--d:.65s">From <strong data-bind="upcoming.priceFrom"></strong> <small>per person</small></p>
@@ -90,13 +90,9 @@
           <span class="about-intro__enso" data-enso="draw"></span>
           <div data-reveal>
             <p class="eyebrow"><span class="eyebrow__num">01</span><span>What we do</span></p>
-            <h2 id="about-title" data-bind="about.noteTitle" data-rich>Everything begins at <em>zero.</em></h2>
-            <p class="zero-note" data-bind="about.noteBody"></p>
-            <p class="zero-note__sig" data-bind="about.noteSignature"></p>
+            <h2 id="about-title" data-bind="about.title">We created the kind of space we were looking for.</h2>
           </div>
-          <div class="about-intro__partners" data-reveal style="--d:.15s">
-            <p class="lead" data-tbc-from="about.paragraph">Shunaya is run by three partners: <span data-bind="about.partner0"></span>, <span data-bind="about.partner1"></span> and <span data-bind="about.partner2"></span>. Like many people, they found themselves caught in routines that left little room to pause. Yoga, art and nature brought them back. Today they share one goal: retreats where you can step away from everyday life, meet like-minded people, explore creativity and build habits that support lasting wellbeing.</p>
-          </div>
+          <div class="about-copy" id="about-copy" data-reveal style="--d:.15s"></div>
         </div>
         <div class="pillars" id="pillars" data-stagger></div>
       </div>
@@ -163,8 +159,8 @@
         <div data-reveal>
           <h2>Every retreat is an invitation to begin again. <em>From zero.</em></h2>
           <div class="closing__cta">
-            <button type="button" class="btn btn--light" data-reserve><span>Reserve <span data-bind="upcoming.name">Bir 2.0</span></span> <svg class="icon btn__arrow" aria-hidden="true"><use href="assets/icons/icons.svg#i-arrow-right"></use></svg></button>
-            <p><span data-bind="upcoming.datesShort"></span> · <span data-bind="upcoming.place"></span></p>
+            <button type="button" class="btn btn--light" data-reserve>Reserve your seat <svg class="icon btn__arrow" aria-hidden="true"><use href="assets/icons/icons.svg#i-arrow-right"></use></svg></button>
+            <p><span data-bind="upcoming.name"></span> · <span data-bind="upcoming.datesShort"></span> · <span data-bind="upcoming.place"></span></p>
           </div>
         </div>
       </div>
@@ -188,7 +184,7 @@
               <li><a href="#about">What we do</a></li>
               <li><a href="#retreats">Where we’ve been</a></li>
               <li><a href="#stories">Stories</a></li>
-              <li><a href="bir.html">Bir 2.0</a></li>
+              <li><a href="bir.html">The Undoing</a></li>
             </ul>
           </div>
         </div>
@@ -214,7 +210,7 @@
     <div class="dialog__body"></div>
   </dialog>
 
-  <!-- Booking form (pre-set to Bir 2.0) -->
+  <!-- Booking form (pre-set to the upcoming retreat) -->
   <dialog class="dialog dialog--form dialog--sheet" id="booking-dialog" aria-labelledby="booking-title">
     <div class="dialog__bar">
       <p class="dialog__title" id="booking-title">Reserve your seat</p>

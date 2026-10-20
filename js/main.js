@@ -73,12 +73,7 @@
     'upcoming.promise': [U.promise],
     'upcoming.priceFrom': [inr(priceFrom())],
     'upcoming.bookingAmount': [inr(U.bookingAmount)],
-    'about.partner0': [D.about.partners[0]],
-    'about.partner1': [D.about.partners[1]],
-    'about.partner2': ['[' + D.about.partners[2] + ']', tbcOf(D.about, 'partners')],
-    'about.noteTitle': [D.about.note.title],
-    'about.noteBody': [D.about.note.body],
-    'about.noteSignature': [D.about.note.signature],
+    'about.title': [D.about.title],
     'config.whatsappDisplay': [C.whatsappDisplay, tbcOf(C, 'whatsappNumber')],
     'config.contactEmail': [C.contactEmail],
     'config.instagramHandle': [C.instagramHandle],
@@ -95,7 +90,7 @@
   };
 
   // "*word*" in data.js → <em>word</em> (used for italic accents in headings)
-  function rich(s) { return esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>'); }
+  function rich(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>'); }
 
   function applyBindings() {
     $$('[data-bind]').forEach(function (el) {
@@ -105,6 +100,7 @@
       else el.textContent = b[0];
       if (b[1]) { el.setAttribute('data-tbc', b[1]); el.title = 'TBC: ' + b[1]; }
     });
+    $$('[data-enso-zero]').forEach(function (el) { el.setAttribute('data-enso-zero', U.ensoLetter || '0'); });
     $$('[data-href]').forEach(function (el) {
       var h = HREF[el.getAttribute('data-href')];
       if (!h) return;
@@ -138,6 +134,18 @@
     $$('[data-countdown-label]').forEach(function (el) { el.textContent = label; });
   }
 
+  /* ---------- Homepage: What we do (approved copy) ---------- */
+
+  function renderAbout() {
+    var el = $('#about-copy');
+    if (!el) return;
+    var A = D.about;
+    el.innerHTML =
+      '<p class="about-copy__intro">' + esc(A.intro) + '</p>' +
+      '<ul class="about-copy__lines">' + A.lines.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' +
+      A.outro.map(function (p, i) { return '<p' + (i === 0 ? ' class="about-copy__turn"' : '') + '>' + esc(p) + '</p>'; }).join('');
+  }
+
   /* ---------- Homepage: pillars ---------- */
 
   function renderPillars() {
@@ -150,7 +158,7 @@
           '<p class="pillar__num">' + esc(p.number) + '</p>' +
           '<h3>' + esc(p.name) + '</h3>' +
           '<p>' + esc(p.lead) + '</p>' +
-          '<p class="pillar__exp"><span class="pillar__exp-label">What you’ll experience:</span> ' + esc(p.experience) + '</p>' +
+          '<p class="pillar__exp"><span class="pillar__exp-label">What you’ll experience:</span> ' + rich(p.experience) + '</p>' +
         '</div></article>';
     }).join('');
   }
@@ -188,11 +196,15 @@
       return '<div class="gallery__slide"><img src="' + esc(g[0]) + '-sm.webp" srcset="' + esc(g[0]) + '-sm.webp 900w, ' + esc(g[0]) + '.webp 2000w" sizes="(min-width: 768px) 760px, 100vw" alt="' + esc(g[1]) + '"' + (i > 1 ? ' loading="lazy"' : '') + '></div>';
     }).join('');
     $('.dialog__body', dlg).innerHTML =
-      '<div class="gallery"' + tbcAttr(tbcOf(r, 'gallery')) + '>' +
+      '<div class="gallery"' + tbcAttr(tbcOf(r, 'gallery')) + '><div class="gallery__stage">' +
         '<div class="gallery__track" tabindex="0" data-drag data-cursor="drag" aria-label="Photos from ' + esc(r.name) + '">' + slides + '</div>' +
         '<div class="gallery__nav"><button type="button" class="icon-btn" data-gal="-1" aria-label="Previous photo">' + icon('caret-left') + '</button>' +
         '<button type="button" class="icon-btn" data-gal="1" aria-label="Next photo">' + icon('caret-right') + '</button></div>' +
-        '<span class="gallery__count" aria-live="polite">1 / ' + r.gallery.length + '</span>' +
+        '<span class="gallery__count" aria-live="polite">1 / ' + r.gallery.length + '</span></div>' +
+        '<div class="gallery__thumbs" aria-label="Choose a photo">' + r.gallery.map(function (g, i) {
+          return '<button type="button" class="gallery__thumb' + (i === 0 ? ' is-active' : '') + '" data-thumb="' + i + '" aria-label="Photo ' + (i + 1) + ': ' + esc(g[1]) + '">' +
+            '<img src="' + esc(g[0]) + '-th.webp" alt="" loading="lazy" width="120" height="90"></button>';
+        }).join('') + '</div>' +
       '</div>' +
       '<div class="glimpse__meta"><span class="chip">' + esc(r.region) + '</span>' +
         '<span' + tbcAttr(tbcOf(r, 'dates')) + '>' + esc(formatRange(r.startDate, r.endDate, true, true)) + '</span>' +
@@ -205,10 +217,20 @@
 
     var track = $('.gallery__track', dlg);
     var count = $('.gallery__count', dlg);
+    var thumbs = $$('.gallery__thumb', dlg);
+    var current = 0;
     track.addEventListener('scroll', function () {
       var i = Math.round(track.scrollLeft / track.clientWidth);
+      if (i === current) return;
+      current = i;
       count.textContent = (i + 1) + ' / ' + r.gallery.length;
+      thumbs.forEach(function (t, j) { t.classList.toggle('is-active', j === i); });
+      var strip = thumbs[i] && thumbs[i].parentElement;
+      if (strip) strip.scrollTo({ left: thumbs[i].offsetLeft - strip.clientWidth / 2 + thumbs[i].clientWidth / 2, behavior: 'smooth' });
     }, { passive: true });
+    thumbs.forEach(function (t, j) {
+      t.addEventListener('click', function () { track.scrollTo({ left: j * track.clientWidth, behavior: 'smooth' }); });
+    });
     $$('[data-gal]', dlg).forEach(function (b) {
       b.addEventListener('click', function () {
         track.scrollBy({ left: track.clientWidth * +b.getAttribute('data-gal'), behavior: 'smooth' });
@@ -550,7 +572,7 @@
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: U.name });
 
       // (3) Thank-you state + (4) WhatsApp hand-off
-      var msg = 'Hi Shunaya, I’d like to reserve ' + (payload.seats > 1 ? payload.seats + ' seats' : 'a seat') + ' for ' + U.name + ' (' + formatRange(U.startDate, U.endDate, false, false) + '). Name: ' + payload.name + (room ? '. Room: ' + room.name : '') + '.';
+      var msg = 'Hi Shunaya, I’d like to reserve ' + (payload.seats > 1 ? payload.seats + ' seats' : 'a seat') + ' for ' + U.name + ' (' + (U.placeShort ? U.placeShort + ', ' : '') + formatRange(U.startDate, U.endDate, false, false) + '). Name: ' + payload.name + (room ? '. Room: ' + room.name : '') + '.';
       var first = payload.name.split(' ')[0];
       container.innerHTML =
         '<div class="booking__done" role="status" tabindex="-1">' +
@@ -654,6 +676,7 @@
   applyBindings();
   tickCountdown();
   setInterval(tickCountdown, 15000);
+  renderAbout();
   renderPillars();
   renderPastRetreats();
   renderTestimonials();
