@@ -573,15 +573,21 @@
     // (1) POST to the form endpoint, or log the payload if none is configured
     var btn = form.querySelector('[type="submit"]');
     btn.disabled = true; btn.textContent = 'Sending…';
-    // Sent as text/plain so the browser skips the CORS preflight, which Google Apps Script can't answer
+    // Sent as text/plain so the browser skips the CORS preflight, which Google Apps Script can't answer.
+    // Capped at 10s: a slow network should never leave the visitor stuck on "Sending…".
     var send = C.formEndpoint && !payload.website
-      ? fetch(C.formEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        }).then(function (res) { return res.json(); }).then(function (r) {
-          if (!r || !r.ok) console.warn('[Shunaya] Form endpoint rejected the booking; continuing to WhatsApp.', r);
-        }).catch(function (err) { console.warn('[Shunaya] Form endpoint failed; continuing to WhatsApp.', err); })
+      ? Promise.race([
+          fetch(C.formEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+          }).then(function (res) { return res.json(); }).then(function (r) {
+            if (!r || !r.ok) console.warn('[Shunaya] Form endpoint rejected the booking; continuing to WhatsApp.', r);
+          }),
+          new Promise(function (resolve) {
+            setTimeout(function () { console.warn('[Shunaya] Form endpoint is slow; continuing to WhatsApp.'); resolve(); }, 10000);
+          })
+        ]).catch(function (err) { console.warn('[Shunaya] Form endpoint failed; continuing to WhatsApp.', err); })
       : Promise.resolve(console.log('[Shunaya] No formEndpoint set in data.js. Booking payload:', payload));
 
     send.then(function () {

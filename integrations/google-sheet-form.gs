@@ -28,6 +28,7 @@ const COLUMNS = [
   ['room', 'Room type'],
   ['notes', 'Anything we should know?']
 ];
+const DATE_FORMAT = 'd mmm yyyy, h:mm am/pm';
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -38,7 +39,10 @@ function doPost(e) {
     if (data.website) return json_({ ok: true });
     if (!data.name || !(data.email || data.whatsapp)) return json_({ ok: false, error: 'Missing name or contact' });
     const row = COLUMNS.map(function (c) { return c[0] === 'submittedAt' ? new Date() : clean_(data[c[0]]); });
-    sheet_().appendRow(row);
+    const sh = sheet_();
+    sh.appendRow(row);
+    // Sheets gives a newly written date its default format, so re-apply ours
+    sh.getRange(sh.getLastRow(), 1).setNumberFormat(DATE_FORMAT);
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
@@ -52,14 +56,15 @@ function doGet() {
   return json_({ ok: true, service: 'Shunaya booking form' });
 }
 
-// Run once from the editor: adds the header row and asks for permission
+// Run once from the editor: sets India time, adds the header row and asks for permission
 function setup() {
+  SpreadsheetApp.getActiveSpreadsheet().setSpreadsheetTimeZone('Asia/Kolkata');
   const sh = sheet_();
   const n = COLUMNS.length;
   if (sh.getMaxColumns() > n) sh.deleteColumns(n + 1, sh.getMaxColumns() - n);
   sh.getRange(1, 1, 1, n).setValues([COLUMNS.map(function (c) { return c[1]; })]).setFontWeight('bold');
   sh.setFrozenRows(1);
-  sh.getRange('A:A').setNumberFormat('d mmm yyyy, h:mm am/pm');
+  sh.getRange('A:A').setNumberFormat(DATE_FORMAT);
 }
 
 function sheet_() {
