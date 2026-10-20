@@ -6,6 +6,8 @@
   <title>The Undoing · 24–27 December 2026 · Bir · Shunaya Retreats</title>
   <meta name="description" content="The Undoing: four days of yoga, art and nature in Bir Billing, Himachal Pradesh, 24–27 December 2026. Detox and detach with Shunaya Retreats.">
   <meta name="theme-color" content="#071B38">
+  <!-- Prototype only: keep it out of search results. Remove on the real site. -->
+  <meta name="robots" content="noindex, nofollow">
 
   <!-- Open Graph / social previews (og:image must be an absolute URL; points at the GitHub Pages preview — switch to the final domain at launch) -->
   <meta property="og:type" content="website">
@@ -58,7 +60,7 @@
     <section class="hero lp-hero" id="top" aria-labelledby="hero-title">
       <div class="hero__media" data-tbc-from="upcoming.heroImage">
         <img src="assets/img/gallery/hero/meditation-apple-orchard-sm.webp"
-             srcset="assets/img/gallery/hero/meditation-apple-orchard-sm.webp 900w, assets/img/gallery/hero/meditation-apple-orchard.webp 2000w"
+             srcset="assets/img/gallery/hero/meditation-apple-orchard-sm.webp 900w, assets/img/gallery/hero/meditation-apple-orchard-md.webp 1400w, assets/img/gallery/hero/meditation-apple-orchard.webp 2000w"
              sizes="100vw" alt="Guests meditating on mats in a sunlit apple orchard at a Shunaya retreat"
              width="2000" height="1333" fetchpriority="high">
       </div>
@@ -66,9 +68,9 @@
         <div>
           <p class="eyebrow" data-intro style="--d:.15s"><span class="eyebrow__num">00</span><span>Yoga with art</span></p>
           <h1 class="hero__title" id="hero-title" data-bind="upcoming.name" data-enso-zero data-intro style="--d:.25s">The Undoing</h1>
-          <p class="hero__promise" data-bind="upcoming.promise" data-intro style="--d:.45s"></p>
-          <ul class="hero__meta" data-intro style="--d:.55s"><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-calendar-blank"></use></svg><span data-bind="upcoming.datesLong"></span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-map-pin"></use></svg><span data-bind="upcoming.place"></span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-users"></use></svg><span><span data-bind="upcoming.length"></span> · <span data-bind="upcoming.seats"></span></span></li></ul>
-          <p class="hero__price" data-intro style="--d:.65s">From <strong data-bind="upcoming.priceFrom"></strong> <small>per person</small></p>
+          <p class="hero__promise" data-bind="upcoming.promise" data-intro style="--d:.45s">Detox and detach: a retreat that nourishes your mind, body and soul. Yoga with art.</p>
+          <ul class="hero__meta" data-intro style="--d:.55s"><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-calendar-blank"></use></svg><span data-bind="upcoming.datesLong">24–27 December 2026</span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-map-pin"></use></svg><span data-bind="upcoming.place">Bir Billing, Himachal Pradesh</span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-users"></use></svg><span><span data-bind="upcoming.length">4 days · 3 nights</span> · <span data-bind="upcoming.seats">18 seats</span></span></li></ul>
+          <p class="hero__price" data-intro style="--d:.65s">From <strong data-bind="upcoming.priceFrom">₹27,399</strong> <small>per person</small></p>
           <div class="hero__actions" data-intro style="--d:.75s">
             <button type="button" class="btn btn--light" data-reserve>Reserve your seat <svg class="icon btn__arrow" aria-hidden="true"><use href="assets/icons/icons.svg#i-arrow-right"></use></svg></button>
             <a class="btn btn--outline-light" href="#days">See the four days</a>
@@ -131,9 +133,12 @@
     <!-- 5. Your hosts -->
     <section class="section section--white" id="hosts" aria-labelledby="hosts-title">
       <div class="container">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow"><span class="eyebrow__num">04</span><span>Your hosts</span></p>
-          <h2 id="hosts-title">Who you’ll spend <em>the four days</em> with</h2>
+        <div class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow"><span class="eyebrow__num">04</span><span>Your hosts</span></p>
+            <h2 id="hosts-title">Who you’ll spend <em>the four days</em> with</h2>
+          </div>
+          <p class="lead">Together they’ve hosted retreats in Tosh, Bir and Goa.</p>
         </div>
         <div class="hosts" id="bir-hosts" data-stagger></div>
       </div>

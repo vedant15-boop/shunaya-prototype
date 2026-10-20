@@ -42,7 +42,7 @@ window.SHUNAYA = {
     startDate: '2026-12-24',
     endDate: '2026-12-27',
     timezone: 'Asia/Kolkata',
-    countdownTo: '2026-12-24T00:00:00+05:30',  // countdown target (start of day 1, IST)
+    countdownTo: '2026-12-24T00:00:00+05:30',  // countdown target: start of day 1, IST (check-in is 11:00 am; midnight kept on purpose)
     days: 4,
     nights: 3,
     seatsTotal: 18,
@@ -52,10 +52,11 @@ window.SHUNAYA = {
     // Hero photo: chosen from the client's "Hero page image options" (5 more in source-raw/drive)
     heroImage: 'assets/img/gallery/hero/meditation-apple-orchard.webp',
     heroImageSm: 'assets/img/gallery/hero/meditation-apple-orchard-sm.webp',
+    heroImageTh: 'assets/img/gallery/hero/meditation-apple-orchard-th.webp',   // booking-form thumbnail
     heroImageAlt: 'Guests meditating on mats in a sunlit apple orchard at a Shunaya retreat',
     rooms: [
-      { id: 'triple', name: 'Triple sharing', price: 27399, note: 'Share a room with two other guests' },
-      { id: 'dual', name: 'Dual sharing', price: 33599, note: 'Share a room with one other guest' }
+      { id: 'triple', name: 'Triple sharing', price: 27399, note: 'Share a room with two other guests of the same gender' },
+      { id: 'dual', name: 'Dual sharing', price: 33599, note: 'Share with one other guest, or bring a friend or partner' }
     ],
     bookingAmount: 12000,
     included: [
@@ -67,11 +68,9 @@ window.SHUNAYA = {
     ],
     notIncluded: [
       'Travel to and from Bir',
-      'Paragliding flights'
-    ],
-    tbc: {
-      countdownTo: 'Countdown runs to 00:00 IST on 24 Dec. Update once check-in time is fixed.'
-    }
+      'Paragliding flights',
+      'Taxes, if any'
+    ]
   },
 
   /* ------------------------------------------------------------------ */
@@ -125,71 +124,9 @@ window.SHUNAYA = {
   ],
 
   /* ------------------------------------------------------------------ */
-  /* Past retreats ("Where we've been"). No booking from these.          */
+  /* Past retreats ("Where we've been"), newest first. No booking.       */
   /* ------------------------------------------------------------------ */
   pastRetreats: [
-    {
-      id: 'tosh',
-      name: 'Tosh',
-      region: 'Himalayas',
-      place: 'Tosh, Himachal Pradesh',
-      startDate: '2025-10-09',
-      endDate: '2025-10-12',
-      length: '4 days · 3 nights',
-      description: 'The original mountain retreat. Snow-capped peaks, bonfire nights, and the kind of silence that speaks louder than words.',
-      cardImage: 'assets/img/gallery/tosh/02-meadow-sm.webp',
-      gallery: [
-        ['assets/img/gallery/tosh/01-arrival', 'Arriving in Tosh under the snow peaks'],
-        ['assets/img/gallery/tosh/02-meadow', 'The meadow below the snow peaks'],
-        ['assets/img/gallery/tosh/03-yoga-grass', 'Yoga on the grass by the cottage'],
-        ['assets/img/gallery/tosh/04-meditation', 'Outdoor meditation in the meadow'],
-        ['assets/img/gallery/tosh/05-art-coasters', 'Hand-painted coasters from the art session'],
-        ['assets/img/gallery/tosh/06-group-paintings', 'The group with their paintings'],
-        ['assets/img/gallery/tosh/07-trek', 'On the trek'],
-        ['assets/img/gallery/tosh/08-forest-path', 'A sunlit forest path'],
-        ['assets/img/gallery/tosh/09-celebration', 'Celebrating outside the cottage'],
-        ['assets/img/gallery/tosh/10-wildflowers', 'Wildflowers and mountains'],
-        ['assets/img/gallery/tosh/11-milky-way', 'The Milky Way over Tosh']
-      ],
-      itinerary: [
-        ['Day 1', 'Arrival in snow-dusted Tosh, warm welcome ginger tea, grounding stretch.'],
-        ['Day 2', 'Snow trek to Kutla, high-altitude breathing exercises, bonfire chats.'],
-        ['Day 3', 'Mindful walk, clay workshop, evening silent meditation.'],
-        ['Day 4', 'Intuitive drawing, hot spring visit in Manikaran, dinner circle.']
-      ],
-      tbc: { dates: 'Dates taken from the old site’s calendar (9–12 Oct 2025). Confirm.' }
-    },
-    {
-      id: 'bir-2025',
-      name: 'Bir 2025',
-      region: 'Sacred Valley',
-      place: 'Bir, Himachal Pradesh',
-      startDate: '2025-12-19',
-      endDate: '2025-12-22',
-      length: '4 days · 3 nights',
-      description: 'Where stillness becomes sacred. A home for the wandering soul in the paragliding capital surrounded by Buddhist monasteries.',
-      cardImage: 'assets/img/gallery/bir-2025/08-trek-sunset-sm.webp',
-      gallery: [
-        ['assets/img/gallery/bir-2025/01-group-yoga-hall', 'The Bir 2025 group with their yoga mats'],
-        ['assets/img/gallery/bir-2025/02-yoga-class', 'Morning yoga in the hall'],
-        ['assets/img/gallery/bir-2025/03-yoga-wheel', 'A guest in wheel pose'],
-        ['assets/img/gallery/bir-2025/04-art-sketching', 'Sketching during an art session'],
-        ['assets/img/gallery/bir-2025/05-painting', 'A painting in progress'],
-        ['assets/img/gallery/bir-2025/06-group-paintings', 'Guests holding the paintings they made'],
-        ['assets/img/gallery/bir-2025/07-monastery', 'A Buddhist monastery near Bir'],
-        ['assets/img/gallery/bir-2025/08-trek-sunset', 'The group on a mountain trail at sunset'],
-        ['assets/img/gallery/bir-2025/09-stream', 'Crossing a mountain stream'],
-        ['assets/img/gallery/bir-2025/10-waterfall', 'A group selfie at the waterfall'],
-        ['assets/img/gallery/bir-2025/11-billing', 'At the Billing paragliding take-off point'],
-        ['assets/img/gallery/bir-2025/12-sunset', 'Sunset over the valley']
-      ],
-      itinerary: [
-        ['Day 1', 'Arrive in Bir, meet and greet, settle in, evening candlelit restorative yoga.'],
-        ['Day 2', 'Morning yoga, walk around Sherab Ling monastery, clay pottery class.'],
-        ['Day 3', 'Sunrise flow, paragliding landing site walk, evening journaling.'],
-        ['Day 4', 'Comic and storytelling art session, forest walk, hot chai circle.']
-      ]
-    },
     {
       id: 'goa',
       name: 'Goa',
@@ -255,6 +192,68 @@ window.SHUNAYA = {
         ['Day 4', 'Journaling, mixed-media art session, bonfire stories.'],
         ['Day 5', 'Hike to Kutla village, high-altitude yoga, connection circle.']
       ]
+    },
+    {
+      id: 'bir-2025',
+      name: 'Bir 2025',
+      region: 'Sacred Valley',
+      place: 'Bir, Himachal Pradesh',
+      startDate: '2025-12-19',
+      endDate: '2025-12-22',
+      length: '4 days · 3 nights',
+      description: 'Where stillness becomes sacred. A home for the wandering soul in the paragliding capital surrounded by Buddhist monasteries.',
+      cardImage: 'assets/img/gallery/bir-2025/08-trek-sunset-sm.webp',
+      gallery: [
+        ['assets/img/gallery/bir-2025/01-group-yoga-hall', 'The Bir 2025 group with their yoga mats'],
+        ['assets/img/gallery/bir-2025/02-yoga-class', 'Morning yoga in the hall'],
+        ['assets/img/gallery/bir-2025/03-yoga-wheel', 'A guest in wheel pose'],
+        ['assets/img/gallery/bir-2025/04-art-sketching', 'Sketching during an art session'],
+        ['assets/img/gallery/bir-2025/05-painting', 'A painting in progress'],
+        ['assets/img/gallery/bir-2025/06-group-paintings', 'Guests holding the paintings they made'],
+        ['assets/img/gallery/bir-2025/07-monastery', 'A Buddhist monastery near Bir'],
+        ['assets/img/gallery/bir-2025/08-trek-sunset', 'The group on a mountain trail at sunset'],
+        ['assets/img/gallery/bir-2025/09-stream', 'Crossing a mountain stream'],
+        ['assets/img/gallery/bir-2025/10-waterfall', 'A group selfie at the waterfall'],
+        ['assets/img/gallery/bir-2025/11-billing', 'At the Billing paragliding take-off point'],
+        ['assets/img/gallery/bir-2025/12-sunset', 'Sunset over the valley']
+      ],
+      itinerary: [
+        ['Day 1', 'Arrive in Bir, meet and greet, settle in, evening candlelit restorative yoga.'],
+        ['Day 2', 'Morning yoga, walk around Sherab Ling monastery, clay pottery class.'],
+        ['Day 3', 'Sunrise flow, paragliding landing site walk, evening journaling.'],
+        ['Day 4', 'Comic and storytelling art session, forest walk, hot chai circle.']
+      ]
+    },
+    {
+      id: 'tosh',
+      name: 'Tosh',
+      region: 'Himalayas',
+      place: 'Tosh, Himachal Pradesh',
+      startDate: '2025-10-09',
+      endDate: '2025-10-12',
+      length: '4 days · 3 nights',
+      description: 'The original mountain retreat. Snow-capped peaks, bonfire nights, and the kind of silence that speaks louder than words.',
+      cardImage: 'assets/img/gallery/tosh/02-meadow-sm.webp',
+      gallery: [
+        ['assets/img/gallery/tosh/01-arrival', 'Arriving in Tosh under the snow peaks'],
+        ['assets/img/gallery/tosh/02-meadow', 'The meadow below the snow peaks'],
+        ['assets/img/gallery/tosh/03-yoga-grass', 'Yoga on the grass by the cottage'],
+        ['assets/img/gallery/tosh/04-meditation', 'Outdoor meditation in the meadow'],
+        ['assets/img/gallery/tosh/05-art-coasters', 'Hand-painted coasters from the art session'],
+        ['assets/img/gallery/tosh/06-group-paintings', 'The group with their paintings'],
+        ['assets/img/gallery/tosh/07-trek', 'On the trek'],
+        ['assets/img/gallery/tosh/08-forest-path', 'A sunlit forest path'],
+        ['assets/img/gallery/tosh/09-celebration', 'Celebrating outside the cottage'],
+        ['assets/img/gallery/tosh/10-wildflowers', 'Wildflowers and mountains'],
+        ['assets/img/gallery/tosh/11-milky-way', 'The Milky Way over Tosh']
+      ],
+      itinerary: [
+        ['Day 1', 'Arrival in snow-dusted Tosh, warm welcome ginger tea, grounding stretch.'],
+        ['Day 2', 'Snow trek to Kutla, high-altitude breathing exercises, bonfire chats.'],
+        ['Day 3', 'Mindful walk, clay workshop, evening silent meditation.'],
+        ['Day 4', 'Intuitive drawing, hot spring visit in Manikaran, dinner circle.']
+      ],
+      tbc: { dates: 'Dates taken from the old site’s calendar (9–12 Oct 2025). Confirm.' }
     }
   ],
 
@@ -264,12 +263,11 @@ window.SHUNAYA = {
   testimonials: [
     {
       name: 'Ashwini Nagesh',
-      retreat: 'Shunaya retreat',
-      quote: 'Came here as strangers, leaving with a family I didn’t know I needed. This retreat gave me memories, laughter, and connections I’ll always cherish. Huge gratitude to Rhythm and Avinash for hosting something so beautiful and meaningful.',
-      tbc: { retreat: 'Source only says “Retreat Guest”. Which retreat?' }
+      retreat: 'Retreat guest',
+      quote: 'Came here as strangers, leaving with a family I didn’t know I needed. This retreat gave me memories, laughter, and connections I’ll always cherish. Huge gratitude to Rhythm and Avinash for hosting something so beautiful and meaningful.'
     },
     {
-      name: 'smriee_',
+      name: 'Smriti',   // the deck credits this quote to "Smriti"; the old site showed her handle, smriee_
       retreat: 'Tosh',
       quote: 'Last winter, I took a leap and went on a crazy trip with a bunch of strangers… who somehow don’t feel like strangers anymore <3\n\nTo a little Himalayan town called Tosh, a place that felt closer to heaven than earth. My first ‘not-so-solo but still solo’ trip, and hands down one of the most thrilling, soul-stirring experiences of my life.\n\nForever grateful for moments like these.'
     },
@@ -280,15 +278,13 @@ window.SHUNAYA = {
     },
     {
       name: 'Sambhav K.',
-      retreat: 'Shunaya retreat',
-      quote: 'This trip ended up being quite an adventure for me! Thank you for being such lovely hosts, Rhythm and Avinash 💕 Met some wonderful people there. Hope to see you guys again soon! 🤗',
-      tbc: { retreat: 'Source only says “Retreat Guest”. Which retreat?' }
+      retreat: 'Retreat guest',
+      quote: 'This trip ended up being quite an adventure for me! Thank you for being such lovely hosts, Rhythm and Avinash 💕 Met some wonderful people there. Hope to see you guys again soon! 🤗'
     },
     {
       name: 'Diksha Thakur',
-      retreat: 'Shunaya retreat',
-      quote: 'Hey Rhythm! Just wanted to say what an amazing trip it was. Everything from the vibe to the planning was spot on. After watching my Ig stories, so many people have been asking about the trip and are dying to join you next time! Whatever vibe criteria you used to select the group clearly worked. It was the perfect mix of people and energy.',
-      tbc: { retreat: 'Source only says “Retreat Guest”. Which retreat?' }
+      retreat: 'Retreat guest',
+      quote: 'Hey Rhythm! Just wanted to say what an amazing trip it was. Everything from the vibe to the planning was spot on. After watching my Ig stories, so many people have been asking about the trip and are dying to join you next time! Whatever vibe criteria you used to select the group clearly worked. It was the perfect mix of people and energy.'
     }
   ],
 
@@ -301,21 +297,19 @@ window.SHUNAYA = {
     { id: 'e2egKhC3ttM', title: 'More words from our participants', poster: 'assets/img/yt-e2egKhC3ttM-lg.webp', thumb: 'assets/img/yt-e2egKhC3ttM.webp' }
   ],
 
-  instagramPost: {
-    url: '',  // paste the Instagram post URL to embed
-    tbc: 'Placeholder. Pick one Instagram post to embed.'
-  },
+  // The card beside the videos links to the Instagram profile (config.instagramUrl)
+  instagramCta: 'Follow along on Instagram',
 
   /* ------------------------------------------------------------------ */
   /* Brands we've worked with                                            */
   /* ------------------------------------------------------------------ */
   brands: [
-    // height: display height in px (logos have different shapes)
+    // height: display height in px (logos have different shapes). pale: logo is light-coloured, so darken it
     { name: 'Wise Life', logo: 'assets/img/brand-wiselife.png', height: 32 },
     { name: 'Boldfit', logo: 'assets/img/brand-boldfit.png', height: 26 },
-    { name: 'Scarlet Blinks', logo: 'assets/img/brand-scarlet-blinks.png', height: 60 },
-    { name: 'Vixie', logo: 'assets/img/brand-vixie.png', height: 40 },
-    { name: 'Fitnut', logo: 'assets/img/brand-fitnut.png', height: 26 }
+    { name: 'Scarlet Blinks', logo: 'assets/img/brand-scarlet-blinks.png', height: 60, pale: true },
+    { name: 'Vixie', logo: 'assets/img/brand-vixie.png', height: 44 },
+    { name: 'Fitnut', logo: 'assets/img/brand-fitnut.png', height: 34 }
   ],
 
   /* ------------------------------------------------------------------ */
@@ -323,26 +317,26 @@ window.SHUNAYA = {
   /* ------------------------------------------------------------------ */
   bir: {
     experiences: [
+      // Copy follows The Undoing deck (journey, inclusions and "Portrait of an undoing" pages)
       {
         name: 'Yoga',
         image: 'assets/img/gallery/bir-2025/02-yoga-class-sm.webp',
         imageAlt: 'Morning yoga at Shunaya’s Bir retreat',
-        text: 'Daily yoga with breathwork and meditation, plus tratak (candle-gazing) to settle a busy mind. Suitable for all experience levels.'
+        text: 'Daily yoga and pranayama, yoga philosophy talks, candle-gazing (tratak) meditation and mindfulness practices. Every session works for every level, with gentler and deeper options.'
       },
       {
-        name: 'Art',
+        name: 'Art & creative exploration',
         image: 'assets/img/gallery/bir-2025/04-art-sketching-sm.webp',
         imageAlt: 'Guests sketching during an art session in Bir',
-        text: 'Art therapy sessions led by artists who encourage curiosity instead of perfection. No experience needed, just a willingness to play.'
+        text: 'An artistic exploration of what we carry, release and leave behind. Led by two working artists. No skill needed: the point is curiosity, not perfection.'
       },
       {
         name: 'Nature',
         image: 'assets/img/gallery/bir-2025/08-trek-sunset-sm.webp',
         imageAlt: 'The group on a mountain trail near Bir at sunset',
-        text: 'A trek to the Mata Maheshwari temple, a bonfire under the winter sky and a night of stargazing in the mountains.'
+        text: 'A guided trek to the Mata Maheshwari temple, a visit to the monastery and the paragliding landing site, sunset over the valley and a bonfire under the winter sky.'
       }
     ],
-    experiencesTbc: 'Copy drafted from the activities named on the client call.',
 
     // From The Undoing deck. title = the day's name, stage = the word shown faded at the foot of the card.
     itinerary: [
@@ -381,18 +375,21 @@ window.SHUNAYA = {
         name: 'Avinash Kour',
         handle: 'An Art Child',
         role: 'Yoga practitioner & story artist',
+        bio: 'Leads the movement, breath and art sessions.',
         photo: 'assets/img/host-avinash-kour-sm.webp'
       },
       {
         name: 'Rhythm S.',
         handle: '',
         role: 'Storyboard & comic artist',
+        bio: 'Keeps the group together, the flow going, and the journaling circle honest.',
         photo: 'assets/img/host-rhythm-s.webp'
       },
       {
         name: 'Smit Gajjar',
         handle: '',
         role: 'Yoga teacher & practitioner',
+        bio: 'Blends movement and stillness, so you can focus on presence more than perfection.',
         photo: 'assets/img/host-smit-gajjar.webp'
       }
     ],
@@ -417,7 +414,7 @@ window.SHUNAYA = {
       },
       {
         q: 'How do I get to Bir?',
-        a: 'The easiest way from Delhi is an overnight Volvo bus to Bir (around 12 hours). If you prefer to fly, the nearest airport is Gaggal (Kangra), about two hours from Bir by road. Travel to Bir isn’t included in the price.'
+        a: 'The easiest way from Delhi is an overnight Volvo bus to Bir (around 12 hours). If you prefer to fly, the nearest airport is Gaggal (Kangra), about 2.5 hours from Bir by road. Travel to Bir isn’t included in the price.'
       },
       {
         q: 'Can I come on my own?',
@@ -429,8 +426,7 @@ window.SHUNAYA = {
       },
       {
         q: 'How does payment work?',
-        a: '₹12,000 reserves your seat. The balance is due before the retreat; we’ll share the exact date and payment details on WhatsApp once you reserve.',
-        tbc: 'Balance due date and payment method to be confirmed.'
+        a: '₹12,000 reserves your seat. The balance is due by 15 December; we’ll share payment details on WhatsApp once you reserve.'
       },
       {
         q: 'What is the cancellation policy?',

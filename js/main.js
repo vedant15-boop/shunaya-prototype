@@ -337,7 +337,6 @@
 
   function renderWatch() {
     $$('[data-watch]').forEach(function (el) {
-      var ig = D.instagramPost;
       el.innerHTML =
         '<div class="watch__player" data-player data-current="0">' + posterHTML(D.videos[0], 0) + '</div>' +
         '<div class="watch__side">' +
@@ -347,8 +346,8 @@
               '<span class="watch__thumb"><img src="' + esc(v.thumb) + '" alt="" loading="lazy" width="480" height="270"><span class="watch__mini">' + PLAY_SVG + '</span></span>' +
               '<span class="watch__meta"><span class="watch__num">' + pad2(i + 1) + '</span><span class="watch__title">' + esc(v.title) + '</span></span></button></li>';
           }).join('') + '</ol>' +
-          '<a class="ig-slot" data-href="instagram"' + tbcAttr(tbcOf(ig)) + '>' + icon('instagram-logo') +
-            '<span><strong>' + esc(C.instagramHandle) + '</strong><span>Instagram post</span></span></a>' +
+          '<a class="ig-slot" data-href="instagram">' + icon('instagram-logo') +
+            '<span><strong>' + esc(C.instagramHandle) + '</strong><span>' + esc(D.instagramCta || 'Instagram') + '</span></span>' + icon('arrow-right', 'ig-slot__arrow') + '</a>' +
         '</div>';
     });
     document.addEventListener('click', function (e) {
@@ -370,7 +369,7 @@
     if (!el) return;
     el.innerHTML = D.brands.map(function (b) {
       if (!b.logo) return '<li class="brand-slot brand-slot--empty"' + tbcAttr(tbcOf(b)) + '>' + esc(b.name) + '</li>';
-      return '<li class="brand-slot"><img src="' + esc(b.logo) + '" alt="' + esc(b.name) + '" loading="lazy"' + (b.height ? ' style="--h:' + (+b.height) + 'px"' : '') + '></li>';
+      return '<li class="brand-slot' + (b.pale ? ' brand-slot--pale' : '') + '"><img src="' + esc(b.logo) + '" alt="' + esc(b.name) + '" loading="lazy"' + (b.height ? ' style="--h:' + (+b.height) + 'px"' : '') + '></li>';
     }).join('');
   }
 
@@ -411,7 +410,7 @@
           '<span class="host__ring" data-enso="draw" style="transform: rotate(' + (i * 137 + 20) + 'deg)"></span></div>' +
           '<div><h3' + tbcAttr(tbcOf(h, 'name')) + '>' + esc(h.name) + '</h3>' +
           (h.handle ? '<p class="host__handle">' + esc(h.handle) + '</p>' : '') +
-          '<p class="host__role">' + esc(h.role) + '</p></div></article>';
+          '<p class="host__role">' + esc(h.role) + '</p>' + (h.bio ? '<p class="host__bio">' + esc(h.bio) + '</p>' : '') + '</div></article>';
       }).join('');
     }
 
@@ -470,7 +469,7 @@
       }).join('') + '</div></fieldset>') : '';
 
     return '<form class="booking" novalidate>' +
-      '<div class="booking__summary"><img src="' + esc(U.heroImageSm) + '" alt="" width="56" height="56">' +
+      '<div class="booking__summary"><img src="' + esc(U.heroImageTh || U.heroImageSm) + '" alt="" width="56" height="56">' +
         '<div><strong>' + esc(U.name) + '</strong><span>' + esc(formatRange(U.startDate, U.endDate, true, true)) + ' · ' + esc(U.place) + '</span></div></div>' +
       '<input type="hidden" name="retreat" value="' + esc(U.id) + '">' +
       '<div class="field" data-field="name"><label for="' + uid + '-name">Full name</label>' +
@@ -482,8 +481,8 @@
           '<p class="field__error" id="' + uid + '-email-err">Please enter a valid email address.</p></div>' +
         '<div class="field" data-field="phone"><label for="' + uid + '-phone">WhatsApp number</label>' +
           '<div class="input-wrap"><span class="input-wrap__prefix" aria-hidden="true">+91</span>' +
-          '<input id="' + uid + '-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="14" placeholder="98765 43210" enterkeyhint="next" required aria-describedby="' + uid + '-phone-err"></div>' +
-          '<p class="field__error" id="' + uid + '-phone-err">Please enter a 10-digit Indian mobile number.</p></div>' +
+          '<input id="' + uid + '-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="98765 43210" enterkeyhint="next" required aria-describedby="' + uid + '-phone-err"></div>' +
+          '<p class="field__error" id="' + uid + '-phone-err">Please enter a 10-digit mobile number. Outside India? Start with + and your country code.</p></div>' +
       '</div>' +
       '<div class="field-row">' +
         '<div class="field" data-field="city"><label for="' + uid + '-city">Travelling from <small>(optional)</small></label>' +
@@ -498,6 +497,7 @@
       '<div class="sr-only" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>' +
       '<button type="submit" class="btn btn--primary btn--block">Reserve my seat ' + icon('arrow-right', 'btn__arrow') + '</button>' +
       '<p class="booking__fine">' + esc(inr(U.bookingAmount)) + ' reserves your seat. We’ll confirm on WhatsApp.</p>' +
+      '<p class="booking__fine booking__privacy"' + tbcAttr('Privacy line drafted. Client to confirm the wording; a full privacy page belongs in the WordPress build.') + '>We’ll only use your details to get in touch about this retreat.</p>' +
       '</form>';
   }
 
@@ -512,8 +512,17 @@
   var VALID = {
     name: function (v) { return v.trim().replace(/\s+/g, ' ').length >= 2; },
     email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); },
-    phone: function (v) { var d = v.replace(/\D/g, '').replace(/^(91|0)(?=\d{10}$)/, ''); return /^[6-9]\d{9}$/.test(d); }
+    phone: function (v) { return !!phoneE164(v); }
   };
+
+  // The number as +<country code><number>, or '' if it isn't valid. Without a leading "+" it must be
+  // a 10-digit Indian mobile (the form shows a fixed +91); with "+" any country code is accepted.
+  function phoneE164(v) {
+    var d = v.replace(/\D/g, '');
+    if (/^\s*\+/.test(v) && !/^91\d{10}$/.test(d)) return /^[1-9]\d{7,14}$/.test(d) ? '+' + d : '';
+    d = d.replace(/^(91|0)(?=\d{10}$)/, '');
+    return /^[6-9]\d{9}$/.test(d) ? '+91' + d : '';
+  }
 
   function validateField(form, name) {
     var input = form.elements[name];
@@ -535,9 +544,13 @@
         if (form.querySelector('[data-field="' + n + '"]').classList.contains('is-invalid')) validateField(form, n);
       });
     });
-    // format phone as "98765 43210"
+    // Indian numbers show as "98765 43210" after the fixed +91. Typing "+" switches to an
+    // international number with its country code (e.g. "+44 7700 900123") and hides the +91.
     form.elements.phone.addEventListener('input', function (e) {
-      var d = e.target.value.replace(/\D/g, '').slice(0, 12);
+      var v = e.target.value, intl = /^\s*\+/.test(v);
+      e.target.closest('.input-wrap').classList.toggle('is-intl', intl);
+      if (intl) { e.target.value = '+' + v.replace(/[^\d ]/g, '').replace(/^\s+/, '').slice(0, 19); return; }
+      var d = v.replace(/\D/g, '').slice(0, 12);
       if (d.length > 10 && /^(91|0)/.test(d)) d = d.replace(/^(91|0)/, '');
       e.target.value = d.length > 5 ? d.slice(0, 5) + ' ' + d.slice(5, 10) : d;
     });
@@ -551,14 +564,14 @@
 
   function submitBooking(form, container, withRoom, uid) {
     var room = withRoom ? U.rooms.filter(function (r) { return r.id === form.elements.room.value; })[0] : null;
-    var phoneDigits = form.elements.phone.value.replace(/\D/g, '').slice(-10);
+    var phoneRaw = form.elements.phone.value;
     var payload = {
       retreat: U.name,
       retreatId: U.id,
       dates: formatRange(U.startDate, U.endDate, true, true),
       name: form.elements.name.value.trim().replace(/\s+/g, ' '),
       email: form.elements.email.value.trim(),
-      whatsapp: '+91' + phoneDigits,
+      whatsapp: phoneE164(phoneRaw),
       room: room ? room.name : '',
       roomPrice: room ? room.price : '',
       seats: +form.elements.seats.value || 1,
@@ -616,7 +629,7 @@
         mountBooking(container, withRoom, uid);
         var f = $('form', container);
         f.elements.name.value = payload.name; f.elements.email.value = payload.email;
-        f.elements.phone.value = phoneDigits.slice(0, 5) + ' ' + phoneDigits.slice(5);
+        f.elements.phone.value = phoneRaw; f.elements.phone.dispatchEvent(new Event('input'));
         f.elements.city.value = payload.travellingFrom; f.elements.seats.value = String(payload.seats); f.elements.notes.value = payload.notes;
         if (room) f.elements.room.value = room.id;
       });
@@ -699,6 +712,27 @@
     document.body.appendChild(badge);
   }
 
+  /* ---------- Phone menu (homepage header, below 900px) ---------- */
+
+  function wireNav() {
+    var btn = $('.nav-toggle');
+    if (!btn) return;
+    var nav = document.getElementById(btn.getAttribute('aria-controls'));
+    function set(open) {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+      document.documentElement.classList.toggle('nav-open', open);
+    }
+    btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true'); });
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { set(false); btn.focus(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (btn.getAttribute('aria-expanded') === 'true' && !e.target.closest('.site-header')) set(false);
+    });
+  }
+
   /* ---------- Init ---------- */
 
   applyBindings();
@@ -712,6 +746,7 @@
   renderBrands();
   renderBir();
   applyBindings(); // second pass for links rendered above (e.g. Instagram slot)
+  wireNav();
   wireDialogs();
   wireBooking();
   wireStickyCta();

@@ -6,6 +6,8 @@
   <title>Shunaya Retreats · Yoga, art and nature retreats in the Himalayas and Goa</title>
   <meta name="description" content="Small yoga, art and nature retreats in the Himalayas and Goa. Next up: The Undoing, 24–27 December 2026 in Bir Billing, Himachal Pradesh.">
   <meta name="theme-color" content="#071B38">
+  <!-- Prototype only: keep it out of search results. Remove on the real site. -->
+  <meta name="robots" content="noindex, nofollow">
 
   <!-- Open Graph / social previews (og:image must be an absolute URL; points at the GitHub Pages preview — switch to the final domain at launch) -->
   <meta property="og:type" content="website">
@@ -47,13 +49,14 @@
         <img src="assets/logo/shunaya-logo-128.webp" alt="" width="52" height="52">
         <span class="brand__name">Shunaya</span>
       </a>
-      <nav class="site-nav" aria-label="Main">
+      <nav class="site-nav" id="site-nav" aria-label="Main">
         <a href="#about">What we do</a>
         <a href="#retreats">Where we’ve been</a>
         <a href="#stories">Stories</a>
         <a href="bir.html">The Undoing</a>
       </nav>
-      <button type="button" class="btn btn--light btn--small" data-reserve>Book your seat</button>
+      <button type="button" class="btn btn--light btn--small" data-reserve>Reserve your seat</button>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span></button>
     </div>
   </header>
 
@@ -63,7 +66,7 @@
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero__media" data-tbc-from="upcoming.heroImage">
         <img src="assets/img/gallery/hero/meditation-apple-orchard-sm.webp"
-             srcset="assets/img/gallery/hero/meditation-apple-orchard-sm.webp 900w, assets/img/gallery/hero/meditation-apple-orchard.webp 2000w"
+             srcset="assets/img/gallery/hero/meditation-apple-orchard-sm.webp 900w, assets/img/gallery/hero/meditation-apple-orchard-md.webp 1400w, assets/img/gallery/hero/meditation-apple-orchard.webp 2000w"
              sizes="100vw" alt="Guests meditating on mats in a sunlit apple orchard at a Shunaya retreat"
              width="2000" height="1333" fetchpriority="high">
       </div>
@@ -71,11 +74,11 @@
         <div>
           <p class="eyebrow" data-intro style="--d:.15s"><span class="eyebrow__num">00</span><span>Next retreat</span></p>
           <h1 class="hero__title" id="hero-title" data-bind="upcoming.name" data-enso-zero data-intro style="--d:.25s">The Undoing</h1>
-          <ul class="hero__meta" data-intro style="--d:.45s"><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-calendar-blank"></use></svg><span data-bind="upcoming.datesLong"></span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-map-pin"></use></svg><span data-bind="upcoming.place"></span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-users"></use></svg><span><span data-bind="upcoming.length"></span> · <span data-bind="upcoming.seats"></span></span></li></ul>
-          <p class="hero__promise" data-bind="upcoming.promise" data-intro style="--d:.55s"></p>
-          <p class="hero__price" data-intro style="--d:.65s">From <strong data-bind="upcoming.priceFrom"></strong> <small>per person</small></p>
+          <ul class="hero__meta" data-intro style="--d:.45s"><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-calendar-blank"></use></svg><span data-bind="upcoming.datesLong">24–27 December 2026</span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-map-pin"></use></svg><span data-bind="upcoming.place">Bir Billing, Himachal Pradesh</span></li><li><svg class="icon" aria-hidden="true"><use href="assets/icons/icons.svg#i-users"></use></svg><span><span data-bind="upcoming.length">4 days · 3 nights</span> · <span data-bind="upcoming.seats">18 seats</span></span></li></ul>
+          <p class="hero__promise" data-bind="upcoming.promise" data-intro style="--d:.55s">Detox and detach: a retreat that nourishes your mind, body and soul. Yoga with art.</p>
+          <p class="hero__price" data-intro style="--d:.65s">From <strong data-bind="upcoming.priceFrom">₹27,399</strong> <small>per person</small></p>
           <div class="hero__actions" data-intro style="--d:.75s">
-            <button type="button" class="btn btn--light" data-reserve>Book your seat <svg class="icon btn__arrow" aria-hidden="true"><use href="assets/icons/icons.svg#i-arrow-right"></use></svg></button>
+            <button type="button" class="btn btn--light" data-reserve>Reserve your seat <svg class="icon btn__arrow" aria-hidden="true"><use href="assets/icons/icons.svg#i-arrow-right"></use></svg></button>
             <a class="btn btn--outline-light" href="bir.html#days">Check itinerary</a>
           </div>
         </div>

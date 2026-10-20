@@ -41,12 +41,13 @@ Every price, date, seat count and countdown on both pages reads from `data.js`, 
 - The form posts JSON as `text/plain`, which avoids a CORS preflight that Apps Script can't answer.
 - Each booking also emails an alert to theshunayaretreats@gmail.com (`ALERT_EMAIL` in the script, sent from the script owner's Gmail). Replying to an alert goes to the guest. The address is set in the script, not on the site, so the endpoint can't be used to email anyone else.
 - A hidden `website` field catches spam bots.
+- **WhatsApp number:** a 10-digit Indian mobile (the form shows a fixed +91), or any number typed with `+` and its country code.
 - If `formEndpoint` is empty, submissions are logged to the browser console instead.
 - Either way, the visitor sees a thank-you screen and a "Continue on WhatsApp" button with their details prefilled.
 - **To change the columns:** edit the script, then use Deploy → Manage deployments → edit → New version. That keeps the same URL.
 - **If the sheet moves to another owner:** the new owner must create a new deployment (it runs as whoever deployed it), and `formEndpoint` must be updated to the new URL.
 
-**Meta Pixel:** set `config.metaPixelId`. The pixel loads with a PageView, and every form submit fires `fbq('track', 'Lead')`.
+**Meta Pixel:** set `config.metaPixelId` (still empty; the client is sending the ID). The pixel loads with a PageView, and every form submit fires `fbq('track', 'Lead')`.
 
 ## Live preview (GitHub Pages)
 
@@ -123,6 +124,13 @@ Notes:
 
 ## Notes for the WordPress build
 
+- **At launch:**
+  - Remove the `<meta name="robots" content="noindex, nofollow">` tag. It's there to keep the prototype out of search results.
+  - Point the `og:` tags at the real domain.
+- **Search:**
+  - Add Event structured data (JSON-LD) for The Undoing: name, dates, location (Mandala Sanctuary, Bir), price and booking URL. Google can then show it as an event.
+  - The prototype doesn't include this, because it's set to noindex.
+- **Hero text:** the hero's dates, place, seats, tagline and price are written into the HTML as well as `data.js`, so nothing jumps when the script fills them in. In WordPress they're server-rendered anyway.
 - Each page section is a flat `<section>` → `.container` → heading → content, so each maps to one Elementor container.
 - Components and their Elementor equivalents:
   - Countdown bar: Countdown widget (Essential Addons is already installed).
