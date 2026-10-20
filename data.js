@@ -436,13 +436,11 @@ window.SHUNAYA = {
       },
       {
         q: 'What is the cancellation policy?',
-        a: 'Our cancellation policy will be listed here. Until then, message us on WhatsApp and we’ll walk you through it.',
-        tbc: 'Cancellation policy to be supplied by the client.'
+        a: 'Everything is booked in advance, so last-minute cancellations aren’t refunded. If you let us know at least 20 days before the retreat (by 4 December), we keep the ₹12,000 booking amount and refund the rest.'
       },
       {
         q: 'What time is check-in, and is there a pickup?',
-        a: 'Check-in is on 24 December; we’ll share the exact time and pickup details on WhatsApp before you travel.',
-        tbc: 'Check-in time and pickup point/cost to be confirmed.'
+        a: 'Check-in is at 11:00 am sharp on 24 December. If you need it, we can pick you up from the Bir bus stop; just let us know when you book.'
       }
     ]
   }

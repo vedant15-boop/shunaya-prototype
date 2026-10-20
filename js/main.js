@@ -494,6 +494,8 @@
       rooms +
       '<div class="field" data-field="notes"><label for="' + uid + '-notes">Anything we should know? <small>(optional)</small></label>' +
         '<div class="input-wrap"><textarea id="' + uid + '-notes" name="notes" rows="3" maxlength="400" placeholder="Dietary needs, injuries, or questions about the retreat"></textarea></div></div>' +
+      // Honeypot: hidden from people and screen readers; bots that fill every field get dropped
+      '<div class="sr-only" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>' +
       '<button type="submit" class="btn btn--primary btn--block">Reserve my seat ' + icon('arrow-right', 'btn__arrow') + '</button>' +
       '<p class="booking__fine">' + esc(inr(U.bookingAmount)) + ' reserves your seat. We’ll confirm on WhatsApp.</p>' +
       '</form>';
@@ -564,17 +566,21 @@
       notes: form.elements.notes.value.trim(),
       page: location.pathname.split('/').pop() || 'index.html',
       submittedAt: new Date().toISOString(),
-      notify: C.notificationEmail
+      notify: C.notificationEmail,
+      website: form.elements.website.value
     };
 
     // (1) POST to the form endpoint, or log the payload if none is configured
     var btn = form.querySelector('[type="submit"]');
     btn.disabled = true; btn.textContent = 'Sending…';
-    var send = C.formEndpoint
+    // Sent as text/plain so the browser skips the CORS preflight, which Google Apps Script can't answer
+    var send = C.formEndpoint && !payload.website
       ? fetch(C.formEndpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
+        }).then(function (res) { return res.json(); }).then(function (r) {
+          if (!r || !r.ok) console.warn('[Shunaya] Form endpoint rejected the booking; continuing to WhatsApp.', r);
         }).catch(function (err) { console.warn('[Shunaya] Form endpoint failed; continuing to WhatsApp.', err); })
       : Promise.resolve(console.log('[Shunaya] No formEndpoint set in data.js. Booking payload:', payload));
 
