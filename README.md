@@ -34,7 +34,7 @@ Everything editable is in **`data.js`**:
 
 Every price, date, seat count and countdown on both pages reads from `data.js`, so change a value once and it updates everywhere. The `<meta>` / Open Graph tags in the HTML `<head>` are the exception: they're static, so update them by hand if the dates change.
 
-**Seats:** set `upcoming.seatsLeft`. While it equals `seatsTotal` the site shows "15 seats"; after that it shows "N seats left", and "Sold out" at 0.
+**Seats:** set `upcoming.seatsLeft`. While it equals `seatsTotal` the site shows "18 seats"; after that it shows "N seats left", and "Sold out" at 0.
 
 **Form:** set `config.formEndpoint` to a URL that accepts a JSON POST (Formspree, Make/n8n webhook, etc.). While it's empty, submissions are logged to the browser console. Either way the visitor sees a thank-you screen and a "Continue on WhatsApp" button with their details prefilled.
 

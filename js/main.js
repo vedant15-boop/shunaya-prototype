@@ -405,6 +405,7 @@
 
     var hosts = $('#bir-hosts');
     if (hosts) {
+      hosts.style.setProperty('--n', D.bir.hosts.length);
       hosts.innerHTML = D.bir.hosts.map(function (h, i) {
         return '<article class="host"><div class="host__photo"' + tbcAttr(tbcOf(h, 'photo')) + '><img src="' + esc(h.photo) + '" alt="' + esc(h.name) + '" loading="lazy">' +
           '<span class="host__ring" data-enso="draw" style="transform: rotate(' + (i * 137 + 20) + 'deg)"></span></div>' +

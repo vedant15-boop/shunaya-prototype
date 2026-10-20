@@ -788,7 +788,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 768px) { .day__stage { font-size: 2.5rem; padding-top: 36px; } }
 
 .hosts { display: grid; gap: 16px; }
-@media (min-width: 768px) { .hosts { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+/* phones: photo beside the text. 768px+: one column per host (--n is set from data.js), photo above the text */
+@media (min-width: 768px) { .hosts { grid-template-columns: repeat(var(--n, 2), 1fr); gap: 20px; } }
 .host { display: grid; grid-template-columns: 104px 1fr; gap: 40px; align-items: center; background: var(--sand); border-radius: var(--radius); padding: 38px 24px 38px 40px; overflow: hidden; }
 .host__photo { position: relative; width: 104px; height: 104px; }
 .host__photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
@@ -798,11 +799,11 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .host__handle { font-family: var(--font-head); font-style: italic; font-size: 1rem; color: var(--sage-deep); }
 .host__role { margin-top: 6px; font-size: 0.9375rem; color: var(--ink-soft); }
 @media (min-width: 768px) {
-  .host { grid-template-columns: 132px 1fr; padding: 48px 32px 48px 52px; gap: 52px; }
+  .host { grid-template-columns: 1fr; justify-items: center; align-content: start; text-align: center; padding: 60px 24px 44px; gap: 44px; }
   .host__photo { width: 132px; height: 132px; }
 }
 @media (min-width: 1100px) {
-  .host { grid-template-columns: 168px 1fr; padding: 56px 40px 56px 64px; gap: 64px; }
+  .host { padding: 72px 32px 52px; gap: 56px; }
   .host__photo { width: 168px; height: 168px; }
   .host h3 { font-size: 2rem; }
 }

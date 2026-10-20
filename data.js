@@ -47,8 +47,8 @@ window.SHUNAYA = {
     countdownTo: '2026-12-24T00:00:00+05:30',  // countdown target (start of day 1, IST)
     days: 4,
     nights: 3,
-    seatsTotal: 15,
-    seatsLeft: 15,                              // update as seats sell; drives every seat count on the site
+    seatsTotal: 18,
+    seatsLeft: 18,                              // update as seats sell; drives every seat count on the site
     maxSeatsPerBooking: 4,                      // the booking form's "Seats" dropdown goes up to this (or seatsLeft)
     promise: 'Detox and detach: a retreat that nourishes your mind, body and soul. Yoga with art.',
     // Hero photo: chosen from the client's "Hero page image options" (5 more in source-raw/drive)
@@ -392,6 +392,13 @@ window.SHUNAYA = {
         role: 'Storyboard & comic artist',
         photo: 'assets/img/host-rhythm-s.webp',
         tbc: { photo: 'Only a small (745px) photo exists. A larger one would help.' }
+      },
+      {
+        name: 'Smit Gajjar',
+        handle: '',
+        role: 'Yoga teacher & practitioner',
+        photo: 'assets/img/host-smit-gajjar.webp',
+        tbc: { photo: 'Cropped from the deck’s low-light studio photo. A proper portrait would help.' }
       }
     ],
 
@@ -419,7 +426,7 @@ window.SHUNAYA = {
       },
       {
         q: 'Can I come on my own?',
-        a: 'Absolutely. Groups are small (15 seats), and many guests arrive as strangers. As one of them put it: “Came here as strangers, leaving with a family I didn’t know I needed.”'
+        a: 'Absolutely. Groups are small (18 seats), and many guests arrive as strangers. As one of them put it: “Came here as strangers, leaving with a family I didn’t know I needed.”'
       },
       {
         q: 'I’m a beginner. Is that OK?',
