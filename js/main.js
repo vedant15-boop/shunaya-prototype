@@ -398,7 +398,8 @@
         var n = d.day.replace(/\D/g, '');
         return '<li class="day"><div class="day__top"><span class="day__num"><span class="sr-only">' + esc(d.day) + '</span><span aria-hidden="true">' + (n.length < 2 ? '0' : '') + esc(n) + '</span></span>' +
           '<span class="day__date">' + esc(d.date) + '</span></div>' +
-          '<h3>' + esc(d.title) + '</h3><ul>' + d.items.map(function (it) { return '<li>' + esc(it) + '</li>'; }).join('') + '</ul></li>';
+          '<h3>' + esc(d.title) + '</h3><ul>' + d.items.map(function (it) { return '<li>' + esc(it) + '</li>'; }).join('') + '</ul>' +
+          (d.stage ? '<p class="day__stage">' + esc(d.stage) + '</p>' : '') + '</li>';
       }).join('');
     }
 
@@ -416,9 +417,18 @@
     var stay = $('#bir-stay-gallery');
     if (stay) {
       var note = tbcOf(D.bir.stay, 'photos');
-      stay.innerHTML = D.bir.stay.photos.map(function (src, i) {
-        return '<div' + tbcAttr(src ? '' : note) + '>' + (src ? '<img src="' + esc(src) + '" alt="' + esc(D.bir.stay.name) + '" loading="lazy">' : placeholder(i === 0 ? D.bir.stay.name + ' photo' : 'Photo')) + '</div>';
+      stay.innerHTML = D.bir.stay.photos.map(function (p, i) {
+        if (!p) return '<div' + tbcAttr(note) + '>' + placeholder(i === 0 ? D.bir.stay.name + ' photo' : 'Photo') + '</div>';
+        // The first photo spans the full width, so it gets the larger file on wide screens
+        var img = i === 0 ? '-sm.webp" srcset="' + esc(p[0]) + '-sm.webp 900w, ' + esc(p[0]) + '.webp 1280w" sizes="(min-width: 900px) 640px, 100vw' : '-sm.webp';
+        return '<div><img src="' + esc(p[0]) + img + '" alt="' + esc(p[1]) + '" loading="lazy"></div>';
       }).join('');
+    }
+    var stayLogo = $('#bir-stay-logo');
+    if (stayLogo && D.bir.stay.logo) {
+      stayLogo.innerHTML = '<img src="' + esc(D.bir.stay.logo) + '" alt="The Mandala Sanctuary logo" width="760" height="273" loading="lazy">';
+    } else if (stayLogo) {
+      stayLogo.remove();
     }
 
     var rooms = $('#bir-rooms');

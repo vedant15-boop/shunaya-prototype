@@ -346,33 +346,37 @@ window.SHUNAYA = {
     ],
     experiencesTbc: 'Copy drafted from the activities named on the client call.',
 
+    // From The Undoing deck. title = the day's name, stage = the word shown faded at the foot of the card.
     itinerary: [
       {
         day: 'Day 1',
         date: 'Thu 24 Dec',
-        title: 'Arrive and settle in',
-        items: ['Check in at Mandala Sanctuary', 'Welcome circle', 'Gentle evening yoga', 'Satvik dinner']
+        title: 'Sankalpa',
+        stage: 'Arrive',
+        items: ['Welcome & opening ceremony', 'Introduction to Undoing', 'Setting up an intention', 'Yoga session', 'Connection', 'Yoga talks']
       },
       {
         day: 'Day 2',
         date: 'Fri 25 Dec',
-        title: 'Into the mountains',
-        items: ['Morning yoga', 'Trek to the Mata Maheshwari temple', 'Art therapy session', 'Stargazing after dinner']
+        title: 'Antar',
+        stage: 'Unlearn',
+        items: ['Morning walk', 'Yoga + pranayama', 'Reflection', 'Art: Unlearning Perfect', 'Yoga session', 'Evening meditation', 'Capturing corner', 'Bonfire + fun activity']
       },
       {
         day: 'Day 3',
         date: 'Sat 26 Dec',
-        title: 'Stillness and colour',
-        items: ['Sunrise yoga', 'Tratak (candle-gazing) meditation', 'Art therapy session', 'Bonfire night']
+        title: 'Abhyasa',
+        stage: 'Release',
+        items: ['Morning yoga', 'Pranayama', 'Monastery', 'Trek to Mata Maheshwari Temple', 'Journalling', 'Sunset', 'Evening meditation', 'Yoga talks', 'Jamming & sharing']
       },
       {
         day: 'Day 4',
         date: 'Sun 27 Dec',
-        title: 'Begin again',
-        items: ['Morning yoga', 'Closing circle over breakfast', 'Goodbyes and departures']
+        title: 'Anubhava',
+        stage: 'Return',
+        items: ['Morning yoga', 'Gratitude circle', 'Reflecting on what remains', 'A new beginning', 'Goodbye with beautiful memories']
       }
     ],
-    itineraryTbc: 'Draft built from the activities named on the call. The official Bir deck has the real day-by-day; replace with that.',
 
     hosts: [
       {
@@ -394,12 +398,14 @@ window.SHUNAYA = {
     stay: {
       name: 'Mandala Sanctuary',
       kind: 'A mud-house resort in Bir',
-      text: 'Mud walls, slow mornings and mountain air: a quiet base for four days of practice, art and rest.',
-      photos: ['', '', ''],
-      tbc: {
-        text: 'Draft description.',
-        photos: 'No photos of Mandala Sanctuary yet. Client to supply 4–6.'
-      }
+      text: 'In the heart of Bir, right beside a monastery. Designed for a mindful escape, with an in-house yogshala for our sessions. Three nights of warm rooms, quiet mornings and satvik meals cooked fresh.',
+      logo: 'assets/img/mandala-sanctuary-logo.webp',
+      // [image path without extension, alt text]; each has .webp and -sm.webp
+      photos: [
+        ['assets/img/gallery/mandala/01-cottages-dusk', 'Mud-house cottages at Mandala Sanctuary at dusk, lamps lit'],
+        ['assets/img/gallery/mandala/02-round-window', 'A stone cottage with a round window in the Mandala Sanctuary garden'],
+        ['assets/img/gallery/mandala/03-satvik-thali', 'A satvik thali served at Mandala Sanctuary']
+      ]
     },
 
     faq: [

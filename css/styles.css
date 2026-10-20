@@ -768,7 +768,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .days { display: grid; gap: 14px; }
 @media (min-width: 768px) { .days { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
 @media (min-width: 1100px) { .days { grid-template-columns: repeat(4, 1fr); } }
-.day { position: relative; background: var(--sand); border-radius: var(--radius); padding: 26px 24px 30px; overflow: hidden; }
+.day { position: relative; display: flex; flex-direction: column; background: var(--sand); border-radius: var(--radius); padding: 26px 24px 26px; overflow: hidden; }
 .day__top { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .day__num {
   font-family: var(--font-head); font-style: italic; font-weight: 400;
@@ -780,6 +780,12 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .day li { position: relative; padding-left: 20px; font-size: 0.9375rem; line-height: 1.5; }
 .day li + li { margin-top: 8px; }
 .day li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--sage); }
+/* the day's stage word sits at the foot of the card, so all four line up across a row */
+.day__stage {
+  margin-top: auto; padding-top: 28px; text-align: right;
+  font-family: var(--font-head); font-style: italic; font-size: 2.25rem; line-height: 1; letter-spacing: -0.02em; color: var(--sage);
+}
+@media (min-width: 768px) { .day__stage { font-size: 2.5rem; padding-top: 36px; } }
 
 .hosts { display: grid; gap: 16px; }
 @media (min-width: 768px) { .hosts { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
@@ -804,9 +810,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .stay { display: grid; gap: 28px; }
 @media (min-width: 900px) { .stay { grid-template-columns: 1fr 1.35fr; gap: 64px; align-items: center; } }
 .stay__kind { font-family: var(--font-head); font-style: italic; font-size: 1.375rem; margin: 10px 0 14px; color: var(--sage-deep); }
+.stay__logo { margin-top: 32px; }
+.stay__logo img { display: block; width: 168px; height: auto; opacity: .88; }
+@media (min-width: 900px) { .stay__logo { margin-top: 40px; } .stay__logo img { width: 196px; } }
 .stay-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .stay-gallery > div { aspect-ratio: 4 / 3; border-radius: var(--radius-sm); overflow: hidden; }
 .stay-gallery > div:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+.stay-gallery img { width: 100%; height: 100%; object-fit: cover; }
 
 .rooms { display: grid; gap: 14px; }
 @media (min-width: 768px) { .rooms { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
