@@ -24,10 +24,11 @@ window.SHUNAYA = {
     instagramUrl: 'https://www.instagram.com/theshunayaretreats',
     instagramHandle: '@theshunayaretreats',
     metaPixelId: '',      // e.g. '1234567890'. Leave empty to disable the Meta Pixel.
-    formEndpoint: '',     // e.g. a Formspree / Make / n8n webhook URL. Empty = log the payload to the console.
+    // Google Apps Script web app that adds each booking to the "Shunaya – Booking leads" sheet
+    // (script: integrations/google-sheet-form.gs). Empty = log the payload to the console instead.
+    formEndpoint: 'https://script.google.com/macros/s/AKfycbzT5l13sacjBAcvdKC66HfPSt7oxvLjXPgPZ5h-NMnbxH7-GWHgP26CSCndjHsGEw48/exec',
     tbc: {
-      notificationEmail: 'Placeholder address. Confirm where booking notifications should go.',
-      formEndpoint: 'No form endpoint yet; submissions are only logged and handed to WhatsApp.'
+      notificationEmail: 'Placeholder address. Confirm where booking notifications should go.'
     }
   },
 

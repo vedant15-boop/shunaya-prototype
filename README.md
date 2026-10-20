@@ -36,7 +36,14 @@ Every price, date, seat count and countdown on both pages reads from `data.js`, 
 
 **Seats:** set `upcoming.seatsLeft`. While it equals `seatsTotal` the site shows "18 seats"; after that it shows "N seats left", and "Sold out" at 0.
 
-**Form:** set `config.formEndpoint` to a URL that accepts a JSON POST (Formspree, Make/n8n webhook, etc.). While it's empty, submissions are logged to the browser console. Either way the visitor sees a thank-you screen and a "Continue on WhatsApp" button with their details prefilled.
+**Form:** each booking becomes a row in the Google Sheet "Shunaya – Booking leads" (Vedant's Drive). The columns match the form: submitted at, retreat, full name, email, WhatsApp number, travelling from, seats, room type and notes.
+- `config.formEndpoint` is the web-app URL of the Apps Script attached to that sheet. Its source is in `integrations/google-sheet-form.gs`.
+- The form posts JSON as `text/plain`, which avoids a CORS preflight that Apps Script can't answer.
+- A hidden `website` field catches spam bots.
+- If `formEndpoint` is empty, submissions are logged to the browser console instead.
+- Either way, the visitor sees a thank-you screen and a "Continue on WhatsApp" button with their details prefilled.
+- **To change the columns:** edit the script, then use Deploy → Manage deployments → edit → New version. That keeps the same URL.
+- **If the sheet moves to another owner:** the new owner must create a new deployment (it runs as whoever deployed it), and `formEndpoint` must be updated to the new URL.
 
 **Meta Pixel:** set `config.metaPixelId`. The pixel loads with a PageView, and every form submit fires `fbq('track', 'Lead')`.
 

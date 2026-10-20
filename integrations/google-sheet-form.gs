@@ -12,22 +12,21 @@
  *
  * If the sheet changes owner, the new owner must redeploy: a deployment runs
  * as whoever created it. A new deployment gets a new URL, so update data.js too.
+ *
+ * @OnlyCurrentDoc  Google then asks for access to this spreadsheet only, not all of your Sheets.
  */
 
-// [field sent by the form, column heading]
+// [field sent by the form, column heading]. Headings match the form's labels, in the form's order.
 const COLUMNS = [
   ['submittedAt', 'Submitted at'],
   ['retreat', 'Retreat'],
-  ['dates', 'Dates'],
-  ['name', 'Name'],
+  ['name', 'Full name'],
   ['email', 'Email'],
-  ['whatsapp', 'WhatsApp'],
-  ['room', 'Room'],
-  ['roomPrice', 'Room price'],
-  ['seats', 'Seats'],
+  ['whatsapp', 'WhatsApp number'],
   ['travellingFrom', 'Travelling from'],
-  ['notes', 'Notes'],
-  ['page', 'Page']
+  ['seats', 'Seats'],
+  ['room', 'Room type'],
+  ['notes', 'Anything we should know?']
 ];
 
 function doPost(e) {
@@ -56,7 +55,9 @@ function doGet() {
 // Run once from the editor: adds the header row and asks for permission
 function setup() {
   const sh = sheet_();
-  sh.getRange(1, 1, 1, COLUMNS.length).setValues([COLUMNS.map(function (c) { return c[1]; })]).setFontWeight('bold');
+  const n = COLUMNS.length;
+  if (sh.getMaxColumns() > n) sh.deleteColumns(n + 1, sh.getMaxColumns() - n);
+  sh.getRange(1, 1, 1, n).setValues([COLUMNS.map(function (c) { return c[1]; })]).setFontWeight('bold');
   sh.setFrozenRows(1);
   sh.getRange('A:A').setNumberFormat('d mmm yyyy, h:mm am/pm');
 }
