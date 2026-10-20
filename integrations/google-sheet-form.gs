@@ -6,6 +6,9 @@
  * "Execute as: Me" and "Who has access: Anyone". Put the /exec URL in
  * data.js → config.formEndpoint.
  *
+ * Each booking also emails ALERT_EMAIL. The address lives here, not on the website,
+ * so nobody can use this endpoint to send mail elsewhere.
+ *
  * Accepts the website's JSON (sent as text/plain to avoid a CORS preflight) and
  * Elementor's webhook (form fields), so the same deployment works after the
  * WordPress rebuild.
@@ -29,6 +32,7 @@ const COLUMNS = [
   ['notes', 'Anything we should know?']
 ];
 const DATE_FORMAT = 'd mmm yyyy, h:mm am/pm';
+const ALERT_EMAIL = 'theshunayaretreats@gmail.com';
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -38,17 +42,41 @@ function doPost(e) {
     // Honeypot: the hidden "website" field is empty for people and filled by bots
     if (data.website) return json_({ ok: true });
     if (!data.name || !(data.email || data.whatsapp)) return json_({ ok: false, error: 'Missing name or contact' });
-    const row = COLUMNS.map(function (c) { return c[0] === 'submittedAt' ? new Date() : clean_(data[c[0]]); });
+    const now = new Date();
+    const row = COLUMNS.map(function (c) { return c[0] === 'submittedAt' ? now : clean_(data[c[0]]); });
     const sh = sheet_();
     sh.appendRow(row);
     // Sheets gives a newly written date its default format, so re-apply ours
     sh.getRange(sh.getLastRow(), 1).setNumberFormat(DATE_FORMAT);
+    // The row is saved; a failed email shouldn't fail the booking
+    try { alert_(data, now); } catch (err) { console.error('Booking alert failed: ' + err); }
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   } finally {
     lock.releaseLock();
   }
+}
+
+// Emails ALERT_EMAIL a summary of the booking; replying goes straight to the guest
+function alert_(data, when) {
+  const val = function (k) { const v = data[k]; return v === undefined || v === null || v === '' ? '–' : String(v).slice(0, 2000); };
+  const lines = COLUMNS.filter(function (c) { return c[0] !== 'submittedAt' && c[0] !== 'retreat'; })
+    .map(function (c) { return c[1] + ': ' + val(c[0]); });
+  const digits = String(data.whatsapp || '').replace(/\D/g, '');
+  const body = 'New booking request for ' + val('retreat') + '\n\n' + lines.join('\n') +
+    (digits ? '\n\nMessage them on WhatsApp: https://wa.me/' + digits : '') +
+    '\n\nSubmitted ' + Utilities.formatDate(when, 'Asia/Kolkata', 'd MMM yyyy, h:mm a') +
+    '\nAll requests: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl();
+  const opts = { name: 'Shunaya booking form' };
+  if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email || '')) opts.replyTo = data.email;
+  const who = val('name').replace(/\s+/g, ' ').slice(0, 80);
+  MailApp.sendEmail(ALERT_EMAIL, 'New booking request: ' + who + ' (' + val('retreat') + ')', body, opts);
+}
+
+// Run from the editor to grant the email permission and see a sample alert
+function testAlert() {
+  alert_({ retreat: 'The Undoing', name: 'Test Booking', email: 'test@example.com', whatsapp: '+919999999999', travellingFrom: 'Test city', seats: 2, room: 'Dual sharing', notes: 'Sample alert from the booking form setup, please ignore' }, new Date());
 }
 
 // Visiting the URL in a browser just confirms the deployment is live

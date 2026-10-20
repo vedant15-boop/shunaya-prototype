@@ -566,7 +566,6 @@
       notes: form.elements.notes.value.trim(),
       page: location.pathname.split('/').pop() || 'index.html',
       submittedAt: new Date().toISOString(),
-      notify: C.notificationEmail,
       website: form.elements.website.value
     };
 

@@ -39,6 +39,7 @@ Every price, date, seat count and countdown on both pages reads from `data.js`, 
 **Form:** each booking becomes a row in the Google Sheet "Shunaya – Booking leads" (Vedant's Drive). The columns match the form: submitted at, retreat, full name, email, WhatsApp number, travelling from, seats, room type and notes.
 - `config.formEndpoint` is the web-app URL of the Apps Script attached to that sheet. Its source is in `integrations/google-sheet-form.gs`.
 - The form posts JSON as `text/plain`, which avoids a CORS preflight that Apps Script can't answer.
+- Each booking also emails an alert to theshunayaretreats@gmail.com (`ALERT_EMAIL` in the script, sent from the script owner's Gmail). Replying to an alert goes to the guest. The address is set in the script, not on the site, so the endpoint can't be used to email anyone else.
 - A hidden `website` field catches spam bots.
 - If `formEndpoint` is empty, submissions are logged to the browser console instead.
 - Either way, the visitor sees a thank-you screen and a "Continue on WhatsApp" button with their details prefilled.

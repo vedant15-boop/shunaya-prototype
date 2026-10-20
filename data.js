@@ -20,16 +20,13 @@ window.SHUNAYA = {
     whatsappNumber: '918850872404',            // digits only, with country code; used for wa.me links
     whatsappDisplay: '+91 88508 72404',
     contactEmail: 'theshunayaretreats@gmail.com', // public email shown in the footer (from the current site)
-    notificationEmail: 'hello@theshunaya.in',    // where booking notifications should go (placeholder)
     instagramUrl: 'https://www.instagram.com/theshunayaretreats',
     instagramHandle: '@theshunayaretreats',
     metaPixelId: '',      // e.g. '1234567890'. Leave empty to disable the Meta Pixel.
     // Google Apps Script web app that adds each booking to the "Shunaya – Booking leads" sheet
     // (script: integrations/google-sheet-form.gs). Empty = log the payload to the console instead.
+    // Booking alert emails go to ALERT_EMAIL in that script, never to an address set here.
     formEndpoint: 'https://script.google.com/macros/s/AKfycbzT5l13sacjBAcvdKC66HfPSt7oxvLjXPgPZ5h-NMnbxH7-GWHgP26CSCndjHsGEw48/exec',
-    tbc: {
-      notificationEmail: 'Placeholder address. Confirm where booking notifications should go.'
-    }
   },
 
   /* ------------------------------------------------------------------ */
