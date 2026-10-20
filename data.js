@@ -380,25 +380,22 @@ window.SHUNAYA = {
 
     hosts: [
       {
-        name: 'Avinash Kaur',
+        name: 'Avinash Kour',
         handle: 'An Art Child',
         role: 'Yoga practitioner & story artist',
-        photo: 'assets/img/host-avinash-kaur-sm.webp',
-        tbc: { name: 'Spelling: site says “Kaur”, her cal.com link says “kour”.' }
+        photo: 'assets/img/host-avinash-kour-sm.webp'
       },
       {
         name: 'Rhythm S.',
         handle: '',
         role: 'Storyboard & comic artist',
-        photo: 'assets/img/host-rhythm-s.webp',
-        tbc: { photo: 'Only a small (745px) photo exists. A larger one would help.' }
+        photo: 'assets/img/host-rhythm-s.webp'
       },
       {
         name: 'Smit Gajjar',
         handle: '',
         role: 'Yoga teacher & practitioner',
-        photo: 'assets/img/host-smit-gajjar.webp',
-        tbc: { photo: 'Cropped from the deck’s low-light studio photo. A proper portrait would help.' }
+        photo: 'assets/img/host-smit-gajjar.webp'
       }
     ],
 
