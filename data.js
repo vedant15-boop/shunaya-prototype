@@ -155,11 +155,7 @@ window.SHUNAYA = {
         ['Day 1', 'Arrival at the wellness resort, evening sunset circle on the beach.'],
         ['Day 2', 'Vinyasa flow, watercolour workshop, evening beach sound meditation.'],
         ['Day 3', 'Hatha yoga, excursion to a hidden waterfall in Netravali, picnic lunch.']
-      ],
-      tbc: {
-        length: 'Derived from the 2–4 Oct dates.',
-        itinerary: 'From the old site’s 4-day Goa listing (dated 12–15 Feb 2026); day 4 dropped to fit 3 days. Confirm.'
-      }
+      ]
     },
     {
       id: 'tosh-2',
@@ -252,8 +248,7 @@ window.SHUNAYA = {
         ['Day 2', 'Snow trek to Kutla, high-altitude breathing exercises, bonfire chats.'],
         ['Day 3', 'Mindful walk, clay workshop, evening silent meditation.'],
         ['Day 4', 'Intuitive drawing, hot spring visit in Manikaran, dinner circle.']
-      ],
-      tbc: { dates: 'Dates taken from the old site’s calendar (9–12 Oct 2025). Confirm.' }
+      ]
     }
   ],
 

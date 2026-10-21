@@ -1,6 +1,6 @@
-# Shunaya: website prototype
+# Shunaya Retreats website
 
-A clickable prototype of the reworked Shunaya Retreats site, built for client approval before the WordPress (Elementor + Astra) build.
+The Shunaya Retreats website. This static build is the final site: there's no WordPress rebuild. It goes live on the client's domain (see "Going live" below).
 
 - `index.html`: homepage
 - `bir.html`: landing page for the upcoming retreat, *The Undoing* (Bir, 24–27 Dec 2026), for Meta/Instagram ads
@@ -28,7 +28,7 @@ Everything editable is in **`data.js`**:
 | "What we do" partners and founders' note | `about` |
 | Pillars | `pillars` |
 | Past retreats (cards, galleries, itineraries) | `pastRetreats` |
-| Testimonials, YouTube videos, Instagram post | `testimonials`, `videos`, `instagramPost` |
+| Testimonials, YouTube videos, Instagram card text | `testimonials`, `videos`, `instagramCta` |
 | Brand logos | `brands` |
 | Bir page: experiences, day-by-day, hosts, stay, FAQ | `bir` |
 
@@ -43,13 +43,14 @@ Every price, date, seat count and countdown on both pages reads from `data.js`, 
 - A hidden `website` field catches spam bots.
 - **WhatsApp number:** a 10-digit Indian mobile (the form shows a fixed +91), or any number typed with `+` and its country code.
 - If `formEndpoint` is empty, submissions are logged to the browser console instead.
-- Either way, the visitor sees a thank-you screen and a "Continue on WhatsApp" button with their details prefilled.
+- **What the visitor sees:** "Thank you, {name}. Your request for The Undoing is in…".
+- **Fallback:** a "Continue on WhatsApp" button, with their details prefilled, appears only if the booking didn't reach the sheet. That covers an error, no answer within 10 seconds, or no `formEndpoint` set.
 - **To change the columns:** edit the script, then use Deploy → Manage deployments → edit → New version. That keeps the same URL.
 - **If the sheet moves to another owner:** the new owner must create a new deployment (it runs as whoever deployed it), and `formEndpoint` must be updated to the new URL.
 
 **Meta Pixel:** set `config.metaPixelId` (still empty; the client is sending the ID). The pixel loads with a PageView, and every form submit fires `fbq('track', 'Lead')`.
 
-## Live preview (GitHub Pages)
+## Preview (GitHub Pages)
 
 - Site: https://vedant15-boop.github.io/shunaya-prototype/ (homepage) and https://vedant15-boop.github.io/shunaya-prototype/bir.html (The Undoing page)
 - Review mode: add `?review=1`, e.g. https://vedant15-boop.github.io/shunaya-prototype/?review=1
@@ -63,23 +64,27 @@ git add -A && git commit -m "Describe the change" && git push
 
 `.gitignore` keeps `source-raw/`, `content/`, `ASSUMPTIONS.md` and the internal brief/plan files out of the repo.
 
-## Other ways to share a preview
+## Going live
 
-`source-raw/` (67 MB of scraped originals) and `content/` don't need to go online.
+The site is static files, so any host works. Only these go online: `index.html`, `bir.html`, `data.js`, `css/`, `js/` and `assets/`. Leave out `source-raw/` (67 MB of originals), `content/`, `integrations/`, `.claude/` and the local notes.
 
-**Netlify Drop:** make a clean copy, then drag that folder onto https://app.netlify.com/drop:
-
-```bash
-rsync -a --exclude source-raw --exclude content --exclude .claude ./ ../shunaya-preview/
-```
-
-**Vercel:** from this folder (`.vercelignore` already excludes the source files):
+Make a clean copy to upload:
 
 ```bash
-npx vercel
+rsync -a --exclude source-raw --exclude content --exclude integrations --exclude .claude --exclude .git --exclude '*.md' --exclude '*.pdf' ./ ../shunaya-live/
 ```
 
-The `og:url` / `og:image` tags in both HTML files currently point at the GitHub Pages address (absolute URLs are required for link previews). If you deploy somewhere else, or at launch, change them to that domain.
+**Where it can go:**
+- **The client's current hosting (cPanel/FTP):** upload the clean copy into the domain's web root (usually `public_html`). This replaces whatever the domain shows today, so back up the current site first.
+- **Or keep it on a static host and point the domain at it:** GitHub Pages (this repo), Netlify or Vercel. The domain's DNS gets a CNAME/A record to the host.
+
+**Launch checklist:**
+- Remove `<meta name="robots" content="noindex, nofollow">` from both pages. It's there to keep the GitHub preview out of search results.
+- Change the `og:url` / `og:image` tags in both pages to the real domain. Link previews need absolute URLs.
+- Set `config.metaPixelId`. Meta Business Manager may also ask you to verify the domain before it lets you configure the pixel's events.
+- Optionally, add Event structured data (JSON-LD) for The Undoing (name, dates, Mandala Sanctuary, price, booking URL) so Google can show it as an event.
+- On the live domain, send one test booking, check the row in the sheet and the alert email, then delete the row.
+- Open the site on a phone, including from an Instagram link.
 
 ## Folder map
 
@@ -122,27 +127,17 @@ Notes:
 - **No dependencies:** there are no libraries and no smooth-scroll hijacking. If `motion.js` fails to load, content still shows (a 3-second fallback removes the hidden-until-revealed state).
 - **The brush shape** is generated once and inlined as SVG path data at the top of `motion.js` (`ENSO_D`, plus a heavier `ENSO_BOLD_D` for headings).
 
-## Notes for the WordPress build
+## Notes
 
-- **At launch:**
-  - Remove the `<meta name="robots" content="noindex, nofollow">` tag. It's there to keep the prototype out of search results.
-  - Point the `og:` tags at the real domain.
-- **Search:**
-  - Add Event structured data (JSON-LD) for The Undoing: name, dates, location (Mandala Sanctuary, Bir), price and booking URL. Google can then show it as an event.
-  - The prototype doesn't include this, because it's set to noindex.
-- **Hero text:** the hero's dates, place, seats, tagline and price are written into the HTML as well as `data.js`, so nothing jumps when the script fills them in. In WordPress they're server-rendered anyway.
-- Each page section is a flat `<section>` → `.container` → heading → content, so each maps to one Elementor container.
-- Components and their Elementor equivalents:
-  - Countdown bar: Countdown widget (Essential Addons is already installed).
-  - Retreat glimpse: Popup with an image carousel.
-  - Testimonial rail: Testimonial or Loop carousel.
-  - FAQ: Accordion.
-  - Booking form: Elementor Form with a webhook action and a redirect to `wa.me`.
-- Brand: Playfair Display (headings) and Jost (body), the same fonts the current sites load. Colors: sand `#F5F1EA`, charcoal `#1E1E1E`, sage `#7A8F7C`, forest `#2B3A2C`, and navy `#071B38` (taken from the logo). Buttons are pill-shaped.
-- Motion and cursor: add `js/motion.js` plus the "Motion" and "Ensō cursor" blocks from `css/styles.css` once, as a site-wide code snippet. The hooks are plain attributes, which you can set with Elementor's custom attributes and CSS classes:
+- **Hero text lives in two places.** The hero's dates, place, seats, tagline and price are in `data.js` and also written into both HTML files, so nothing jumps while the script loads. If you change any of them in `data.js`, change the hero text in `index.html` and `bir.html` too. Otherwise the old value shows for a split second.
+- **Brand:**
+  - Fonts: Playfair Display (headings) and Jost (body), the same as the old site.
+  - Colours: sand `#F5F1EA`, charcoal `#1E1E1E`, sage `#7A8F7C`, sage-deep `#566A58` (small labels), forest `#2B3A2C`, and navy `#071B38` (taken from the logo).
+  - Buttons are pill-shaped.
+- **Motion hooks** (plain attributes):
   - `data-reveal` and `data-stagger`: scroll reveals.
   - `data-enso` / `data-enso="draw"`: an ensō graphic, static or painted on scroll.
-  - `data-enso-zero` on a heading: draws its "0" as an ensō.
+  - `data-enso-zero` on a heading: draws its "o" as an ensō.
   - `data-cursor="look|play|drag"`: the cursor label.
   - `data-drag`: mouse drag on a carousel.
   - `.section--dark`: the light cursor colour.

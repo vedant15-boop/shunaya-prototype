@@ -497,7 +497,7 @@
       '<div class="sr-only" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>' +
       '<button type="submit" class="btn btn--primary btn--block">Reserve my seat ' + icon('arrow-right', 'btn__arrow') + '</button>' +
       '<p class="booking__fine">' + esc(inr(U.bookingAmount)) + ' reserves your seat. We’ll confirm on WhatsApp.</p>' +
-      '<p class="booking__fine booking__privacy"' + tbcAttr('Privacy line drafted. Client to confirm the wording; a full privacy page belongs in the WordPress build.') + '>We’ll only use your details to get in touch about this retreat.</p>' +
+      '<p class="booking__fine booking__privacy">We’ll only use your details to get in touch about this retreat.</p>' +
       '</form>';
   }
 
