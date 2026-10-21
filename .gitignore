@@ -11,3 +11,4 @@ ASSUMPTIONS.md
 .DS_Store
 .claude/settings.local.json
 release/
+exports/
