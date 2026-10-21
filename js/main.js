@@ -241,14 +241,35 @@
 
   /* ---------- Dialog helpers ---------- */
 
+  // Keep the page still behind an open dialog. iPhone Safari ignores overflow:hidden on <html> for
+  // touch scrolling, so the body is pinned in place (and the scroll position restored on close).
+  var lockedY = null;
+  function lockScroll() {
+    if (lockedY !== null) return;
+    lockedY = window.scrollY;
+    var b = document.body.style;
+    b.position = 'fixed'; b.top = -lockedY + 'px'; b.left = '0'; b.right = '0';
+    document.documentElement.style.overflow = 'hidden';
+  }
+  function unlockScroll() {
+    if (lockedY === null || $$('dialog').some(function (d) { return d.open; })) return;
+    var b = document.body.style, html = document.documentElement.style;
+    b.position = b.top = b.left = b.right = '';
+    html.overflow = '';
+    html.scrollBehavior = 'auto';   // jump straight back, no smooth scroll
+    window.scrollTo(0, lockedY);
+    html.scrollBehavior = '';
+    lockedY = null;
+  }
+
   function openDialog(dlg) {
     if (!dlg.open) dlg.showModal();
-    document.documentElement.style.overflow = 'hidden';
+    lockScroll();
     updateStickyCta();
   }
   function wireDialog(dlg) {
     dlg.addEventListener('close', function () {
-      document.documentElement.style.overflow = '';
+      unlockScroll();
       updateStickyCta();
     });
     // click on backdrop closes
