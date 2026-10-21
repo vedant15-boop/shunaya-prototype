@@ -10,3 +10,4 @@ ASSUMPTIONS.md
 # Local / OS clutter
 .DS_Store
 .claude/settings.local.json
+release/

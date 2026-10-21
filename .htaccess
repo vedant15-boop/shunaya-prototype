@@ -1,0 +1,50 @@
+# Shunaya website: server settings for GoDaddy cPanel hosting (Apache / LiteSpeed).
+# Every block is guarded with <IfModule>, so a missing module skips that block instead of breaking the site.
+
+# Serve our index.html as the homepage, even if old WordPress files (index.php) are still in this folder
+DirectoryIndex index.html
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+</IfModule>
+
+# Hide the bookkeeping file the GitHub deploy keeps here (it lists which files were uploaded)
+<Files ".ftp-deploy-sync-state.json">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</Files>
+
+# Compress text files
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript text/javascript image/svg+xml application/json
+</IfModule>
+
+# Browser caching. Pages always re-check, so updates show straight away; CSS/JS for an hour;
+# photos for a week (a replaced photo with the same name can take up to a week to refresh for repeat visitors).
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
+  ExpiresByType text/javascript "access plus 1 hour"
+  ExpiresByType image/webp "access plus 7 days"
+  ExpiresByType image/png "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 7 days"
+  ExpiresByType image/svg+xml "access plus 7 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Always use https. Turn this on (remove the # signs) once https://theshunaya.in opens with a padlock;
+# turning it on before the SSL certificate is active would make the site unreachable.
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>

@@ -1,0 +1,80 @@
+# Uploads the website to GoDaddy (theshunaya.in) over FTP whenever a site file changes on main.
+#
+# One-time setup: add three repository secrets under Settings → Secrets and variables → Actions:
+#   FTP_SERVER    the FTP host from cPanel → FTP Accounts → "Configure FTP Client" (e.g. ftp.theshunaya.in)
+#   FTP_USERNAME  the dedicated deploy account, e.g. deploy@theshunaya.in. Its directory must be public_html.
+#   FTP_PASSWORD  that account's password
+# Until all three exist, the workflow skips the upload instead of failing.
+#
+# Only changed files are uploaded. The action keeps a list of what it uploaded in
+# .ftp-deploy-sync-state.json on the server (blocked from the web by .htaccess). It never touches
+# files it didn't upload. To push everything again, use "Run workflow" on the Actions tab.
+
+name: Deploy to GoDaddy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - bir.html
+      - data.js
+      - .htaccess
+      - css/**
+      - js/**
+      - assets/**
+      - .github/workflows/deploy.yml
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-godaddy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check the FTP login is set up
+        id: creds
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if [ -n "$FTP_SERVER" ] && [ -n "$FTP_USERNAME" ] && [ -n "$FTP_PASSWORD" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::Nothing uploaded: add FTP_SERVER, FTP_USERNAME and FTP_PASSWORD under Settings → Secrets and variables → Actions."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check out the site
+        if: steps.creds.outputs.ready == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Collect the files that go online
+        if: steps.creds.outputs.ready == 'true'
+        run: |
+          mkdir _site
+          rsync -a --exclude '.DS_Store' index.html bir.html data.js .htaccess css js assets _site/
+          echo "Site files: $(find _site -type f | wc -l)"
+
+      # FTPS (encrypted). GoDaddy's certificate is issued for its server name, not theshunaya.in,
+      # hence security: loose (still encrypted, but the certificate name isn't checked).
+      # If GoDaddy refuses FTPS, change protocol to ftp.
+      - name: Upload changed files to GoDaddy
+        if: steps.creds.outputs.ready == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          security: loose
+          local-dir: ./_site/
+          server-dir: ./
